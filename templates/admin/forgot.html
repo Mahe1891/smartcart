@@ -1,0 +1,82 @@
+{% extends "admin/admin_base.html" %}
+
+{% block title %}Forgot Password - SmartCart{% endblock %}
+
+{% block extra_css %}
+<style>
+
+/* CARD */
+.login-card {
+    width: 100%;
+    max-width: 420px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(15px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+}
+
+/* INPUT */
+.form-control {
+    border-radius: 12px;
+    background: rgba(255,255,255,0.1);
+    color: white;
+    border: none;
+}
+
+.form-control::placeholder {
+    color: #ccc;
+}
+
+/* BUTTON */
+.btn-custom {
+    background: linear-gradient(135deg, #ff7a00, #ff3c00);
+    color: white;
+    border-radius: 12px;
+    font-weight: bold;
+}
+
+</style>
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container px-3">
+    <div class="card login-card p-4 mx-auto">
+
+        <!-- FLASH -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% for category, message in messages %}
+        <div id="flash-message" class="alert alert-success text-center mb-3">
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% endwith %}
+
+        <h3 class="text-center mb-4 text-white fw-bold">Forgot Password</h3>
+
+        <form method="POST" action="/forgot-password">
+
+            <div class="mb-3">
+                <label class="form-label text-light">Enter Email</label>
+                <input type="email" name="email" class="form-control" placeholder="Enter your email" required>
+            </div>
+
+            <button type="submit" class="btn btn-custom w-100">Send OTP</button>
+
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}
+
+
+{% block extra_js %}
+<script>
+setTimeout(function() {
+    let msg = document.getElementById("flash-message");
+    if (msg) msg.style.display = "none";
+}, 2000);
+</script>
+{% endblock %}

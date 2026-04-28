@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>User Dashboard - SmartCart</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #fff7ed, #ffedd5, #fed7aa);
+    color: #111827;
+    font-family: 'Segoe UI', sans-serif;
+    overflow-x: hidden;
+}
+
+a {
+    text-decoration: none;
+}
+
+/* NAVBAR */
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: #000 !important;
+    padding: 10px 20px;
+}
+
+.navbar-brand {
+    color: #ff7a00 !important;
+    font-weight: bold;
+}
+
+.nav-btn {
+    color: #ccc;
+    margin: 0 8px;
+    font-weight: 500;
+}
+
+.nav-btn:hover {
+    color: #ff7a00;
+}
+
+.navbar-toggler {
+    border: none;
+}
+
+/* FLASH */
+.flash-msg {
+    border-radius: 12px;
+}
+
+/* SEARCH */
+.search-area {
+    padding: 15px 20px;
+    background: #000;
+}
+
+.search-area form {
+    max-width: 900px;
+}
+
+.search-area input {
+    border-radius: 30px 0 0 30px;
+    border: none;
+    padding: 12px;
+}
+
+.search-area button {
+    border-radius: 0 30px 30px 0;
+    background: #ff7a00;
+    border: none;
+    padding: 0 22px;
+}
+
+/* MOVING OFFER BAR */
+.offer-bar {
+    width: 100%;
+    overflow: hidden;
+    background: linear-gradient(90deg, #ff4d4d, #ff9900);
+    color: white;
+    padding: 10px 0;
+    font-weight: 700;
+}
+
+.offer-track {
+    display: flex;
+    gap: 50px;
+    white-space: nowrap;
+    animation: scrollOffers 20s linear infinite;
+}
+
+.offer-track span {
+    display: inline-block;
+}
+
+@keyframes scrollOffers {
+    0% {
+        transform: translateX(0%);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+.offer-bar:hover .offer-track {
+    animation-play-state: paused;
+}
+
+/* MAIN BANNER */
+.banner-img {
+    height: 380px;
+    object-fit: cover;
+    filter: brightness(0.65);
+}
+
+.banner-overlay {
+    position: absolute;
+    top: 50%;
+    left: 8%;
+    transform: translateY(-50%);
+    color: white;
+}
+
+.banner-overlay h1 {
+    font-size: 44px;
+    font-weight: 800;
+}
+
+.banner-overlay p {
+    font-size: 18px;
+    opacity: 0.9;
+}
+
+/* PROMO BANNERS */
+.promo-section {
+    padding: 45px 0 20px;
+}
+
+.section-title {
+    font-weight: 800;
+    color: #111827;
+    margin-bottom: 22px;
+}
+
+#multiBannerCarousel {
+    padding-bottom: 35px;
+}
+
+.promo-card {
+    border-radius: 24px;
+    min-height: 260px;
+    padding: 22px 20px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.12);
+    height: 100%;
+}
+
+.promo-text {
+    position: relative;
+    z-index: 2;
+    max-width: 60%;
+}
+
+.promo-text h6 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: #0f172a;
+}
+
+.promo-text h2 {
+    font-size: 2rem;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 10px;
+    color: #111827;
+}
+
+.promo-text p {
+    font-size: 1rem;
+    margin-bottom: 0;
+    color: rgba(0, 0, 0, 0.72);
+}
+
+.promo-img {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    width: 42%;
+    max-height: 220px;
+    object-fit: contain;
+    border-radius: 12px;
+}
+
+.small-img {
+    width: 55%;
+    max-height: 190px;
+}
+
+.green-card {
+    background: linear-gradient(135deg, #cfe88d, #dff3a8);
+}
+
+.blue-card {
+    background: linear-gradient(135deg, #8dd0f7, #b7e4ff);
+}
+
+.light-card {
+    background: linear-gradient(135deg, #f2f2f2, #e3e3e3);
+}
+
+.pink-card {
+    background: linear-gradient(135deg, #ffd0dc, #ffe3ea);
+}
+
+.yellow-card {
+    background: linear-gradient(135deg, #ffe08a, #fff0ba);
+}
+
+.purple-card {
+    background: linear-gradient(135deg, #d9c2ff, #ece1ff);
+}
+
+.orange-card {
+    background: linear-gradient(135deg, #ffd19a, #ffe6c5);
+}
+
+.sky-card {
+    background: linear-gradient(135deg, #9be7ff, #d6f6ff);
+}
+
+.gray-card {
+    background: linear-gradient(135deg, #d9dde4, #eef1f5);
+}
+
+.custom-indicators {
+    bottom: -4px;
+    margin-bottom: 0;
+}
+
+.custom-indicators [data-bs-target] {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #cbd5e1;
+    border: none;
+    margin: 0 4px;
+    opacity: 1;
+}
+
+.custom-indicators .active {
+    width: 28px;
+    border-radius: 10px;
+    background-color: #64748b;
+}
+
+/* PRODUCTS */
+.products-section {
+    padding: 35px 0 55px;
+}
+
+.product-card {
+    border-radius: 18px;
+    overflow: hidden;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.product-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.product-card .card-body {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.product-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 28px rgba(0,0,0,0.18);
+}
+
+.product-card .btn {
+    border-radius: 10px;
+    font-weight: 600;
+}
+
+/* FOOTER */
+.footer {
+    background: #111827;
+    color: #d1d5db;
+    padding: 40px 8% 15px;
+    margin-top: auto;
+}
+
+.footer h5 {
+    color: white;
+    font-weight: 700;
+}
+
+.footer a {
+    display: block;
+    color: #d1d5db;
+    text-decoration: none;
+    margin-bottom: 7px;
+}
+
+.footer a:hover {
+    color: #ff7a00;
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.1);
+    margin-top: 25px;
+    padding-top: 15px;
+    text-align: center;
+    font-size: 14px;
+}
+
+/* RESPONSIVE */
+@media(max-width:991px) {
+    #nav {
+        background: #000;
+        padding: 15px;
+        border-top: 1px solid #222;
+    }
+
+    #nav a {
+        display: block;
+        padding: 8px 0;
+    }
+
+    .nav-btn {
+        margin: 0;
+    }
+}
+
+@media(max-width:768px) {
+    .banner-img {
+        height: 250px;
+    }
+
+    .banner-overlay {
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        width: 90%;
+    }
+
+    .banner-overlay h1 {
+        font-size: 26px;
+    }
+
+    .banner-overlay p {
+        font-size: 14px;
+    }
+
+    .promo-card {
+        min-height: 220px;
+    }
+
+    .promo-text h2 {
+        font-size: 1.3rem;
+    }
+
+    .promo-img {
+        width: 38%;
+        max-height: 160px;
+    }
+}
+
+@media(max-width:575px) {
+    .navbar-brand {
+        font-size: 1rem;
+    }
+
+    .search-area {
+        padding: 12px;
+    }
+
+    .banner-img {
+        height: 220px;
+    }
+
+    .banner-overlay h1 {
+        font-size: 22px;
+    }
+
+    .promo-card {
+        min-height: 210px;
+        padding: 18px 16px;
+        border-radius: 18px;
+    }
+
+    .promo-text {
+        max-width: 62%;
+    }
+
+    .promo-text h6 {
+        font-size: 0.88rem;
+        margin-bottom: 8px;
+    }
+
+    .promo-text h2 {
+        font-size: 1.1rem;
+        margin-bottom: 8px;
+    }
+
+    .promo-text p {
+        font-size: 0.82rem;
+    }
+
+    .promo-img {
+        width: 36%;
+        max-height: 120px;
+        right: 8px;
+        bottom: 8px;
+    }
+
+    .product-card img {
+        height: 180px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-black sticky-top">
+  <div class="container-fluid">
+
+    <a class="navbar-brand d-flex align-items-center" href="/user-dashboard">
+      <span style="width:35px;height:35px;
+      background:linear-gradient(#ff7a00,#ff3c00);
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      margin-right:8px;">🛒</span>
+      SmartCart
+    </a>
+
+    <button class="navbar-toggler bg-warning" type="button"
+      data-bs-toggle="collapse" data-bs-target="#nav">
+      ☰
+    </button>
+
+    <div class="collapse navbar-collapse" id="nav">
+      <div class="ms-auto d-flex flex-lg-row flex-column align-items-lg-center gap-2 mt-3 mt-lg-0">
+        <a href="/user-dashboard" class="nav-btn">🏠 Home</a>
+        <a href="/user/products" class="nav-btn">🛍 Shop</a>
+        <a href="/user/profile" class="nav-btn">👤 Profile</a>
+        <a href="/user/cart" class="nav-btn">🛒 Cart</a>
+        <a href="/user-logout" class="nav-btn">Logout</a>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+<div class="container mt-2" style="max-width: 400px;">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }} py-2 px-3 small fade show flash-msg" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+</div>
+
+<div class="search-area">
+    <form class="d-flex mx-auto" method="GET" action="/user/products">
+        <input class="form-control" type="search" name="search" placeholder="Search products...">
+        <button class="btn text-white">🔍</button>
+    </form>
+</div>
+
+<div class="offer-bar">
+    <div class="offer-track">
+        <span>🔥 Big Sale: Up to 50% OFF on Electronics!</span>
+        <span>🚚 Free Delivery on Orders Above ₹999</span>
+        <span>🎁 Buy 1 Get 1 Free on Selected Items</span>
+        <span>💳 Extra 10% Discount on Credit Cards</span>
+        <span>⚡ Limited Time Deals – Hurry Up!</span>
+
+        <span>🔥 Big Sale: Up to 50% OFF on Electronics!</span>
+        <span>🚚 Free Delivery on Orders Above ₹999</span>
+        <span>🎁 Buy 1 Get 1 Free on Selected Items</span>
+        <span>💳 Extra 10% Discount on Credit Cards</span>
+        <span>⚡ Limited Time Deals – Hurry Up!</span>
+    </div>
+</div>
+
+<div id="mainBanner" class="carousel slide carousel-fade" data-bs-ride="carousel">
+
+<div class="carousel-inner">
+
+<div class="carousel-item active position-relative">
+<img src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=1600" class="w-100 banner-img">
+<div class="banner-overlay">
+<h1>🔥 Big Sale 50% OFF</h1>
+<p>Shop best deals now</p>
+<a href="/user/products" class="btn btn-warning">Shop Now</a>
+</div>
+</div>
+
+<div class="carousel-item position-relative">
+<img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=1600" class="w-100 banner-img">
+<div class="banner-overlay">
+<h1>👟 New Arrivals</h1>
+<p>Check latest fashion trends</p>
+<a href="/user/products" class="btn btn-warning">Explore</a>
+</div>
+</div>
+
+<div class="carousel-item position-relative">
+<img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=1600" class="w-100 banner-img">
+<div class="banner-overlay">
+<h1>📱 Electronics Sale</h1>
+<p>Best gadgets at best prices</p>
+<a href="/user/products" class="btn btn-warning">Buy Now</a>
+</div>
+</div>
+
+</div>
+
+<button class="carousel-control-prev" type="button" data-bs-target="#mainBanner" data-bs-slide="prev">
+<span class="carousel-control-prev-icon"></span>
+</button>
+
+<button class="carousel-control-next" type="button" data-bs-target="#mainBanner" data-bs-slide="next">
+<span class="carousel-control-next-icon"></span>
+</button>
+
+</div>
+
+<section class="promo-section">
+<div class="container">
+
+<h3 class="section-title">✨ Special Deals For You</h3>
+
+<div id="multiBannerCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="2500">
+
+<div class="carousel-indicators custom-indicators">
+<button type="button" data-bs-target="#multiBannerCarousel" data-bs-slide-to="0" class="active"></button>
+<button type="button" data-bs-target="#multiBannerCarousel" data-bs-slide-to="1"></button>
+<button type="button" data-bs-target="#multiBannerCarousel" data-bs-slide-to="2"></button>
+</div>
+
+<div class="carousel-inner">
+
+<div class="carousel-item active">
+<div class="row g-4">
+
+<div class="col-md-4">
+<div class="promo-card green-card">
+<div class="promo-text">
+<h6>Super Cooling Days</h6>
+<h2>Massive deals!<br>From ₹3,899</h2>
+<p>Top brands available</p>
+</div>
+<img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=500" class="promo-img">
+</div>
+</div>
+
+<div class="col-md-5">
+<div class="promo-card blue-card">
+<div class="promo-text">
+<h6>Vacation Sale</h6>
+<h2>Sale is live!<br>Flights From ₹999</h2>
+<p>Book now</p>
+</div>
+<img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800" class="promo-img">
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="promo-card light-card">
+<div class="promo-text">
+<h6>Mobiles</h6>
+<h2>Latest Phones</h2>
+<p>Best camera phones</p>
+</div>
+<img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=400" class="promo-img small-img">
+</div>
+</div>
+
+</div>
+</div>
+
+<div class="carousel-item">
+<div class="row g-4">
+
+<div class="col-md-4">
+<div class="promo-card pink-card">
+<div class="promo-text">
+<h6>Fashion Offers</h6>
+<h2>Trendy Styles<br>Under ₹499</h2>
+<p>Kurtas, Tops, Sarees</p>
+</div>
+<img src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=500" class="promo-img">
+</div>
+</div>
+
+<div class="col-md-5">
+<div class="promo-card yellow-card">
+<div class="promo-text">
+<h6>Electronics Sale</h6>
+<h2>Best Gadgets<br>Up to 70% Off</h2>
+<p>Mobiles, Laptops, Watches</p>
+</div>
+<img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=800" class="promo-img">
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="promo-card purple-card">
+<div class="promo-text">
+<h6>Beauty Picks</h6>
+<h2>Glow Essentials</h2>
+<p>Top brands</p>
+</div>
+<img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400" class="promo-img small-img">
+</div>
+</div>
+
+</div>
+</div>
+
+<div class="carousel-item">
+<div class="row g-4">
+
+<div class="col-md-4">
+<div class="promo-card orange-card">
+<div class="promo-text">
+<h6>Home Essentials</h6>
+<h2>Upgrade Home<br>From ₹299</h2>
+<p>Kitchen, decor, furniture</p>
+</div>
+<img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=500" class="promo-img">
+</div>
+</div>
+
+<div class="col-md-5">
+<div class="promo-card sky-card">
+<div class="promo-text">
+<h6>Travel Deals</h6>
+<h2>Weekend Escapes<br>At Best Prices</h2>
+<p>Hotels and flights</p>
+</div>
+<img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800" class="promo-img">
+</div>
+</div>
+
+
+<div class="col-md-3">
+<div class="promo-card gray-card">
+<div class="promo-text">
+<h6>Accessories</h6>
+<h2>Smart Picks</h2>
+<p>Watches, bags, more</p>
+</div>
+<img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400" class="promo-img small-img">
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+</div>
+</div>
+</section>
+
+<section class="products-section">
+<div class="container">
+
+<h3 class="section-title">🔥 Trending Products</h3>
+
+<div class="row g-4">
+
+<div class="col-lg-3 col-md-4 col-sm-6">
+<div class="card product-card shadow-sm">
+<img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500" class="card-img-top">
+<div class="card-body text-center">
+<h6>Smartphone</h6>
+<p class="text-muted small">Latest model phone</p>
+<h5 class="text-warning">₹25,999</h5>
+<a href="/user/products" class="btn btn-warning w-100">View</a>
+</div>
+</div>
+</div>
+
+<div class="col-lg-3 col-md-4 col-sm-6">
+<div class="card product-card shadow-sm">
+<img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500" class="card-img-top">
+<div class="card-body text-center">
+<h6>Shoes</h6>
+<p class="text-muted small">Comfort running shoes</p>
+<h5 class="text-warning">₹2,999</h5>
+<a href="/user/products" class="btn btn-warning w-100">View</a>
+</div>
+</div>
+</div>
+
+<div class="col-lg-3 col-md-4 col-sm-6">
+<div class="card product-card shadow-sm">
+<img src="https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=500" class="card-img-top">
+<div class="card-body text-center">
+<h6>Headphones</h6>
+<p class="text-muted small">Noise cancelling</p>
+<h5 class="text-warning">₹3,499</h5>
+<a href="/user/products" class="btn btn-warning w-100">View</a>
+</div>
+</div>
+</div>
+
+<div class="col-lg-3 col-md-4 col-sm-6">
+<div class="card product-card shadow-sm">
+<img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500" class="card-img-top">
+<div class="card-body text-center">
+<h6>Smart Watch</h6>
+<p class="text-muted small">Fitness smartwatch</p>
+<h5 class="text-warning">₹3,999</h5>
+<a href="/user/products" class="btn btn-warning w-100">View</a>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</section>
+
+<footer class="footer">
+<div class="row gy-4">
+
+<div class="col-md-4">
+<h5><i class="bi bi-cart3"></i> SmartCart</h5>
+<p>Your one-stop shop for electronics, fashion and more 🚀</p>
+</div>
+
+<div class="col-md-3">
+<h5>Quick Links</h5>
+<a href="/user-dashboard">Home</a>
+<a href="/user/products">Shop</a>
+<a href="/user/profile">Profile</a>
+<a href="/user/cart">Cart</a>
+</div>
+
+<div class="col-md-3">
+<h5>Categories</h5>
+<a href="/user/products">Electronics</a>
+<a href="/user/products">Fashion</a>
+<a href="/user/products">Home</a>
+<a href="/user/products">Gadgets</a>
+</div>
+
+<div class="col-md-2">
+<h5>Follow Us</h5>
+<div class="d-flex gap-3 fs-5">
+<i class="bi bi-facebook"></i>
+<i class="bi bi-instagram"></i>
+<i class="bi bi-twitter-x"></i>
+<i class="bi bi-youtube"></i>
+</div>
+</div>
+
+</div>
+
+<div class="footer-bottom">
+© 2026 SmartCart | Fast • Secure • Reliable
+</div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+setTimeout(() => {
+    document.querySelectorAll('.flash-msg').forEach(el => {
+        el.style.transition = "opacity 0.5s";
+        el.style.opacity = "0";
+        setTimeout(() => el.remove(), 500);
+    });
+}, 1500);
+</script>
+
+</body>
+</html>

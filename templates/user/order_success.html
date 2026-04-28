@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Order Successful</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(135deg, #fff7ed, #ffedd5, #fed7aa);
+    color: #111827;
+    font-family: 'Segoe UI', sans-serif;
+    overflow-x: hidden;
+}
+
+a {
+    text-decoration: none;
+}
+
+/* NAVBAR */
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: #000 !important;
+    padding: 10px 20px;
+}
+
+.navbar-brand {
+    color: #ff7a00 !important;
+    font-weight: bold;
+}
+
+.nav-btn {
+    color: #ccc;
+    margin: 0 8px;
+    font-weight: 500;
+}
+
+.nav-btn:hover {
+    color: #ff7a00;
+}
+
+.navbar-toggler {
+    border: none;
+}
+
+/* FLASH */
+.flash-msg {
+    border-radius: 12px;
+}
+
+/* MAIN */
+.main-content {
+    flex: 1;
+    padding: 40px 12px 55px;
+}
+
+.success-container {
+    max-width: 950px;
+    margin: auto;
+    background: rgba(255,255,255,0.96);
+    padding: 35px;
+    text-align: center;
+    border-radius: 24px;
+    box-shadow: 0 18px 45px rgba(15, 23, 42, 0.14);
+    border: 1px solid rgba(255,255,255,0.7);
+}
+
+.success-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 18px;
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 38px;
+    box-shadow: 0 12px 25px rgba(34, 197, 94, 0.35);
+}
+
+.success-container h2 {
+    color: #16a34a;
+    font-weight: 900;
+    margin-bottom: 8px;
+}
+
+.success-container p {
+    color: #475569;
+}
+
+.order-details {
+    text-align: left;
+    margin-top: 25px;
+    background: #fff7ed;
+    padding: 22px;
+    border-radius: 18px;
+    border: 1px solid #fed7aa;
+}
+
+.order-details p {
+    margin-bottom: 9px;
+    font-size: 16px;
+}
+
+.order-details strong {
+    color: #111827;
+}
+
+.items-list {
+    margin-top: 28px;
+    text-align: left;
+}
+
+.items-list h3 {
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 15px;
+}
+
+.table-box {
+    width: 100%;
+    overflow-x: auto;
+    border-radius: 18px;
+    box-shadow: 0 8px 22px rgba(15, 23, 42, 0.08);
+}
+
+.items-list table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    min-width: 520px;
+}
+
+.items-list th {
+    background: #111827;
+    color: white;
+    padding: 13px;
+}
+
+.items-list td {
+    padding: 13px;
+    border-bottom: 1px solid #e5e7eb;
+    color: #475569;
+}
+
+.items-list tr:last-child td {
+    border-bottom: none;
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 30px;
+}
+
+.custom-btn {
+    padding: 11px 22px;
+    background: linear-gradient(135deg, #ff7a00, #ff3c00);
+    color: #fff;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: 0.3s ease;
+}
+
+.custom-btn:hover {
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(255, 122, 0, 0.35);
+}
+
+.dark-btn {
+    background: #111827;
+}
+
+.dark-btn:hover {
+    background: #000;
+}
+
+.green-btn {
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+}
+
+.green-btn:hover {
+    box-shadow: 0 8px 18px rgba(34, 197, 94, 0.35);
+}
+
+/* FOOTER */
+.footer {
+    background: #111827;
+    color: #d1d5db;
+    padding: 40px 8% 15px;
+    margin-top: auto;
+}
+
+.footer h5 {
+    color: white;
+    font-weight: 700;
+}
+
+.footer a {
+    display: block;
+    color: #d1d5db;
+    text-decoration: none;
+    margin-bottom: 7px;
+}
+
+.footer a:hover {
+    color: #ff7a00;
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.1);
+    margin-top: 25px;
+    padding-top: 15px;
+    text-align: center;
+    font-size: 14px;
+}
+
+/* RESPONSIVE */
+@media(max-width:991px) {
+    #nav {
+        background: #000;
+        padding: 15px;
+        border-top: 1px solid #222;
+    }
+
+    #nav a {
+        display: block;
+        padding: 8px 0;
+    }
+
+    .nav-btn {
+        margin: 0;
+    }
+}
+
+@media(max-width:575px) {
+    .navbar {
+        padding: 10px 12px;
+    }
+
+    .navbar-brand {
+        font-size: 1rem;
+    }
+
+    .main-content {
+        padding: 25px 10px 40px;
+    }
+
+    .success-container {
+        padding: 24px 14px;
+        border-radius: 20px;
+    }
+
+    .success-container h2 {
+        font-size: 24px;
+    }
+
+    .order-details {
+        padding: 16px;
+    }
+
+    .custom-btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    .footer {
+        padding: 30px 20px 15px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-black sticky-top">
+  <div class="container-fluid">
+
+    <a class="navbar-brand d-flex align-items-center" href="/user-dashboard">
+      <span style="width:35px;height:35px;
+      background:linear-gradient(#ff7a00,#ff3c00);
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      margin-right:8px;">🛒</span>
+      SmartCart
+    </a>
+
+    <button class="navbar-toggler bg-warning" type="button"
+      data-bs-toggle="collapse" data-bs-target="#nav">
+      ☰
+    </button>
+
+    <div class="collapse navbar-collapse" id="nav">
+      <div class="ms-auto d-flex flex-lg-row flex-column align-items-lg-center gap-2 mt-3 mt-lg-0">
+        <a href="/user-dashboard" class="nav-btn">🏠 Home</a>
+        <a href="/user/products" class="nav-btn">🛍 Shop</a>
+        <a href="/user/profile" class="nav-btn">👤 Profile</a>
+        <a href="/user/cart" class="nav-btn">🛒 Cart</a>
+        <a href="/user-logout" class="nav-btn">Logout</a>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+<div class="container mt-2" style="max-width: 400px;">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    <div class="alert alert-{{ category }} py-2 px-3 small fade show flash-msg">
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+</div>
+
+<div class="container main-content">
+
+    <div class="success-container">
+
+        <div class="success-icon">
+            <i class="bi bi-check-lg"></i>
+        </div>
+
+        <h2>🎉 Your Order is Confirmed!</h2>
+        <p>Thank you for shopping with <strong>SmartCart</strong>.</p>
+
+        <div class="order-details">
+            <p><strong>Order ID:</strong> {{ order.order_id }}</p>
+            <p><strong>Payment ID:</strong> {{ order.razorpay_payment_id }}</p>
+            <p><strong>Amount Paid:</strong> ₹{{ order.amount }}</p>
+            <p><strong>Order Date:</strong> {{ order.created_at }}</p>
+        </div>
+
+        <div class="items-list">
+            <h3>Order Summary</h3>
+
+            <div class="table-box">
+                <table>
+                    <tr>
+                        <th>Product</th>
+                        <th>Qty</th>
+                        <th>Price (₹)</th>
+                    </tr>
+
+                    {% for it in items %}
+                    <tr>
+                        <td>{{ it.product_name }}</td>
+                        <td>{{ it.quantity }}</td>
+                        <td>₹{{ it.price }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+
+        <div class="action-buttons">
+            <a href="/user/products" class="custom-btn">
+                Continue Shopping
+            </a>
+
+            <a href="/user/my-orders" class="custom-btn dark-btn">
+                View My Orders
+            </a>
+
+            <a href="/user/download-invoice/{{ order.order_id }}" class="custom-btn green-btn">
+                Download Invoice PDF
+            </a>
+        </div>
+
+    </div>
+
+</div>
+
+<footer class="footer">
+<div class="row gy-4">
+
+<div class="col-md-4">
+<h5><i class="bi bi-cart3"></i> SmartCart</h5>
+<p>Your one-stop shop for electronics, fashion and more 🚀</p>
+</div>
+
+<div class="col-md-3">
+<h5>Quick Links</h5>
+<a href="/user-dashboard">Home</a>
+<a href="/user/products">Shop</a>
+<a href="/user/profile">Profile</a>
+<a href="/user/cart">Cart</a>
+</div>
+
+<div class="col-md-3">
+<h5>Categories</h5>
+<a href="/user/products">Electronics</a>
+<a href="/user/products">Fashion</a>
+<a href="/user/products">Home</a>
+<a href="/user/products">Gadgets</a>
+</div>
+
+<div class="col-md-2">
+<h5>Follow Us</h5>
+<div class="d-flex gap-3 fs-5">
+<i class="bi bi-facebook"></i>
+<i class="bi bi-instagram"></i>
+<i class="bi bi-twitter-x"></i>
+<i class="bi bi-youtube"></i>
+</div>
+</div>
+
+</div>
+
+<div class="footer-bottom">
+© 2026 SmartCart | Fast • Secure • Reliable
+</div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+setTimeout(() => {
+    document.querySelectorAll('.flash-msg').forEach(el => {
+        el.style.transition = "opacity 0.5s";
+        el.style.opacity = "0";
+        setTimeout(() => el.remove(), 500);
+    });
+}, 1500);
+</script>
+
+</body>
+</html>

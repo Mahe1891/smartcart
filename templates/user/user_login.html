@@ -1,0 +1,118 @@
+{% extends "user/base.html" %}
+
+{% block title %}User Login - SmartCart{% endblock %}
+
+{% block extra_css %}
+<style>
+
+/* CENTER LOGIN */
+.main-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* CARD */
+.login-box {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    padding: 30px;
+    border-radius: 18px;
+    backdrop-filter: blur(18px);
+
+    box-shadow: 
+        0 10px 40px rgba(0,0,0,0.7),
+        inset 0 0 15px rgba(255,255,255,0.05);
+
+    width: 100%;
+    max-width: 400px;
+}
+
+/* INPUT GROUP */
+.input-group {
+    background: rgba(255,255,255,0.08);
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.1);
+    overflow: hidden;
+}
+
+.input-group-text {
+    background: transparent;
+    border: none;
+    color: #ff7a00;
+}
+
+.form-control {
+    background: transparent;
+    border: none;
+    color: white;
+}
+
+.form-control:focus {
+    box-shadow: none;
+}
+
+/* FOCUS */
+.input-group:focus-within {
+    border: 1px solid #ff7a00;
+    box-shadow: 0 0 10px #ff7a00;
+}
+
+/* BUTTON */
+.btn-custom {
+    background: linear-gradient(45deg,#ff7a00,#ff3c00);
+    border: none;
+    transition: 0.3s;
+    font-weight: 500;
+}
+
+.btn-custom:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px #ff7a00;
+}
+
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="login-box">
+
+    <h3 class="text-center mb-4">User Login</h3>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    <p class="text-danger text-center">{{ message }}</p>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    <form method="POST" action="/user-login">
+
+        <div class="mb-3 input-group">
+            <span class="input-group-text">📧</span>
+            <input type="email" name="email" class="form-control" placeholder="Enter your email" required>
+        </div>
+
+        <div class="mb-3 input-group">
+            <span class="input-group-text">🔒</span>
+            <input type="password" name="password" class="form-control" placeholder="Enter password" required>
+        </div>
+
+        <button class="btn btn-custom w-100">Login</button>
+
+        <div class="text-end mt-2">
+            <a href="/user-forgot-password" class="text-warning">Forgot Password?</a>
+        </div>
+
+    </form>
+
+    <p class="text-center mt-3">
+        Don't have an account?
+        <a href="/user-register" class="text-warning">Create Account</a>
+    </p>
+
+</div>
+
+{% endblock %}

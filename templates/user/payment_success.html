@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Payment Successful</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', sans-serif;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /* ✅ SIMPLE CLEAN BACKGROUND */
+    background: #f5f6fa;
+}
+
+/* CARD */
+.success-card {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 40px;
+    width: 100%;
+    max-width: 450px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+/* LOGO */
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.logo span {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(#ff7a00,#ff3c00);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 8px;
+    color: white;
+    font-size: 18px;
+}
+
+/* TITLE */
+.success-title {
+    color: #28a745;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+/* TEXT */
+.info-text {
+    color: #555;
+    margin-bottom: 8px;
+}
+
+/* BUTTON */
+.btn-custom {
+    margin-top: 20px;
+    background: linear-gradient(#ff7a00,#ff3c00);
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 10px 25px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.btn-custom:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+}
+</style>
+</head>
+
+<body>
+
+<div class="success-card">
+
+    <!-- LOGO -->
+    <div class="logo">
+        <span>🛒</span>
+        <h5 class="mb-0 fw-bold">SmartCart</h5>
+    </div>
+
+    <!-- SUCCESS MESSAGE -->
+    <h2 class="success-title">Payment Successful!</h2>
+
+    <p class="info-text"><strong>Payment ID:</strong> {{ payment_id }}</p>
+    <p class="info-text"><strong>Order ID:</strong> {{ order_id }}</p>
+
+    <a href="/user/products" class="btn btn-custom">
+        Continue Shopping
+    </a>
+
+</div>
+
+</body>
+</html>

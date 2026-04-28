@@ -1,0 +1,91 @@
+{% extends "admin/admin_base.html" %}
+
+{% block title %}Admin Signup - SmartCart{% endblock %}
+
+{% block extra_css %}
+<style>
+
+/* 🔥 CARD */
+.signup-card{
+    width:100%;
+    max-width:420px;
+    padding:30px;
+    border-radius:20px;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(15px);
+    box-shadow:0 15px 40px rgba(0,0,0,0.6);
+    color:white;
+}
+
+/* INPUT */
+.form-control{
+    border-radius:12px;
+    background: rgba(255,255,255,0.1);
+    color:white;
+    border:none;
+}
+
+.form-control::placeholder{
+    color:#ccc;
+}
+
+/* BUTTON */
+.btn-custom{
+    background: linear-gradient(135deg,#ff7a00,#ff3c00);
+    color:white;
+    border-radius:12px;
+    font-weight:bold;
+}
+
+.btn-custom:hover{
+    background: linear-gradient(135deg,#ff3c00,#ff7a00);
+}
+
+/* MOBILE */
+@media (max-width:576px){
+    .signup-card{
+        padding:20px;
+    }
+}
+
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="signup-card mx-auto">
+
+    <h3 class="text-center mb-4">Admin Registration</h3>
+
+    <!-- Flash -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% for category, message in messages %}
+    <div class="alert alert-danger text-center py-2">{{ message }}</div>
+    {% endfor %}
+    {% endwith %}
+
+    <form method="POST" action="/admin-signup">
+
+        <div class="mb-3">
+            <label class="form-label text-light">Name</label>
+            <input type="text" name="name" class="form-control" placeholder="Enter your name" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label text-light">Email</label>
+            <input type="email" name="email" class="form-control" placeholder="Enter your email" required>
+        </div>
+
+        <button type="submit" class="btn btn-custom w-100 mb-3">Send OTP</button>
+
+        <!-- 🔥 LOGIN LINK -->
+        <p class="text-center text-light mb-0">
+            Already have an account?
+            <a href="/admin-login" class="text-warning fw-bold">Login</a>
+        </p>
+
+    </form>
+
+</div>
+
+{% endblock %}

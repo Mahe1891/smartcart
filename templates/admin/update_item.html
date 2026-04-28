@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Update Product - SmartCart</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+html, body {
+    height:100%;
+    margin:0;
+}
+
+body{
+    display:flex;
+    flex-direction:column;
+    background: linear-gradient(135deg,#0f0f0f,#1c1c1c,#ff7a00);
+    color:white;
+    font-family:'Segoe UI', sans-serif;
+}
+
+/* 🔥 ONLY CHANGE HERE */
+.navbar{
+    background:#000;
+    position:sticky;
+    top:0;
+    z-index:1000; /* FIX */
+}
+
+.navbar-brand{
+    color:#ff7a00 !important;
+    font-weight:bold;
+}
+
+/* MAIN */
+.main-content{
+    flex:1;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+
+/* CARD */
+.card{
+    width:100%;
+    max-width:500px;
+    border-radius:15px;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(12px);
+    border:1px solid rgba(255,122,0,0.3);
+    box-shadow:0 10px 30px rgba(0,0,0,0.6);
+}
+
+/* INPUT */
+.form-control{
+    border-radius:10px;
+    background:#222;
+    border:none;
+    color:white;
+}
+
+.form-control::placeholder{
+    color:#aaa;
+}
+
+/* BUTTON */
+.btn-custom{
+    background: linear-gradient(135deg,#ff7a00,#ff3c00);
+    color:white;
+    border-radius:10px;
+}
+
+.btn-custom:hover{
+    opacity:0.9;
+}
+
+/* IMAGE */
+.product-img{
+    border-radius:10px;
+    object-fit:cover;
+    border:1px solid rgba(255,255,255,0.1);
+}
+
+/* FOOTER */
+.footer{
+    background:#000;
+    text-align:center;
+    padding:10px;
+    color:#aaa;
+}
+
+/* RESPONSIVE */
+@media(max-width:576px){
+    .card{
+        padding:15px;
+    }
+}
+
+/* HEADER */
+h3{
+    color:#fff;
+    font-weight:700;
+    letter-spacing:1px;
+}
+
+h3::after{
+    content:"";
+    display:block;
+    width:60px;
+    height:3px;
+    background:#ff7a00;
+    margin:8px auto 0;
+    border-radius:5px;
+}
+
+.form-label{
+    color:#ffb066;
+    font-weight:600;
+    letter-spacing:0.3px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+        <a class="navbar-brand d-flex align-items-center" href="/admin-dashboard">
+            <span style="
+                width:35px;
+                height:35px;
+                background: linear-gradient(#ff7a00,#ff3c00);
+                border-radius:50%;
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                margin-right:8px;
+            ">🛒</span>
+            SmartCart
+        </a>
+    </div>
+</nav>
+
+<!-- MAIN -->
+<div class="main-content">
+
+    <div class="card p-4">
+
+        <h3 class="text-center mb-4">Update Product</h3>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% for category, message in messages %}
+            <div id="flash-msg" class="alert alert-success text-center">
+                {{ message }}
+            </div>
+          {% endfor %}
+        {% endwith %}
+
+        <form method="POST" action="/admin/update-item/{{ product.product_id }}" enctype="multipart/form-data">
+
+            <div class="mb-3">
+                <label class="form-label">PRODUCT NAME</label>
+                <input type="text" name="name" class="form-control" value="{{ product.name }}" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">DESCRIPTION</label>
+                <textarea name="description" class="form-control" rows="3" required>{{ product.description }}</textarea>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">CATEGORY</label>
+                <input type="text" name="category" class="form-control" value="{{ product.category }}" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">PRICE</label>
+                <input type="number" step="0.01" name="price" class="form-control" value="{{ product.price }}" required>
+            </div>
+
+            <div class="mb-3 text-center">
+                <label class="form-label d-block">CURRENT IMAGE</label>
+                <img src="/static/uploads/product_images/{{ product.image }}" 
+                     width="120" height="120" class="product-img">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">CHANGE IMAGE (OPTIONAL)</label>
+                <input type="file" name="image" class="form-control" accept="image/*">
+            </div>
+
+            <button type="submit" class="btn btn-custom w-100">Update Product</button>
+
+        </form>
+
+        <div class="text-center mt-3">
+            <a href="/admin/item-list" class="btn btn-outline-light">← Back to List</a>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+        ⚡ SmartCart • Fast • Secure • Reliable <br>
+        © 2026 All Rights Reserved
+    </footer>
+
+<script>
+setTimeout(()=>{
+    let msg=document.getElementById("flash-msg");
+    if(msg) msg.style.display="none";
+},2000);
+</script>
+
+</body>
+</html>

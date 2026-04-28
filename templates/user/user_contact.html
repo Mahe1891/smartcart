@@ -1,0 +1,124 @@
+{% extends "user/base.html" %}
+
+{% block title %}User Contact - SmartCart{% endblock %}
+
+{% block extra_css %}
+<style>
+
+/* COMMON WRAPPER (same behavior as about) */
+.page-wrapper {
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* CONTACT CARD */
+.contact-card {
+    width: 100%;
+    max-width: 450px;
+    padding: 30px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(18px);
+    border: 1px solid rgba(255,255,255,0.15);
+    box-shadow: 
+        0 10px 40px rgba(0,0,0,0.7),
+        inset 0 0 15px rgba(255,255,255,0.05);
+    animation: floatCard 4s ease-in-out infinite;
+
+    will-change: transform;
+}
+
+@keyframes floatCard {
+    0% {transform: translateY(0px);}
+    50% {transform: translateY(-6px);}
+    100% {transform: translateY(0px);}
+}
+
+/* INPUT */
+.form-control {
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.08);
+    color: white;
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: 0.3s;
+}
+
+.form-control:focus {
+    border: 1px solid #ff7a00;
+    box-shadow: 0 0 10px #ff7a00;
+    transform: scale(1.02);
+    background: rgba(255,255,255,0.1);
+    color: white;
+}
+
+.form-control::placeholder {
+    color: #bbb;
+}
+
+/* BUTTON */
+.btn-custom {
+    background: linear-gradient(135deg, #ff7a00, #ff3c00);
+    color: white;
+    border-radius: 10px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.btn-custom:hover {
+    background: linear-gradient(135deg, #ff3c00, #ff7a00);
+    transform: scale(1.05);
+    box-shadow: 0 0 15px #ff7a00;
+    color: white;
+}
+
+.alert {
+    border-radius: 10px;
+    font-size: 14px;
+}
+
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="page-wrapper">
+
+    <div class="contact-card text-center">
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div id="flash-msg" class="alert alert-success">
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        <h2 class="mb-4">Contact Us</h2>
+
+        <form method="POST" action="/user-contact">
+
+            <input type="text" name="name" class="form-control mb-3" placeholder="Full Name" required>
+            <input type="text" name="phone" class="form-control mb-3" placeholder="Phone Number" required>
+            <input type="email" name="email" class="form-control mb-3" placeholder="Email Address" required>
+            <textarea name="message" class="form-control mb-3" placeholder="Your Message" required></textarea>
+
+            <button class="btn btn-custom w-100">Send Message</button>
+
+        </form>
+
+    </div>
+
+</div>
+
+<script>
+setTimeout(function () {
+    let msg = document.getElementById("flash-msg");
+    if (msg) msg.style.display = "none";
+}, 2000);
+</script>
+
+{% endblock %}

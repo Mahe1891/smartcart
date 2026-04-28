@@ -1,0 +1,141 @@
+{% extends "user/base.html" %}
+
+{% block title %}Reset Password - SmartCart{% endblock %}
+
+{% block extra_css %}
+<style>
+
+/* CENTER WRAPPER (same across all pages) */
+.page-wrapper {
+    min-height: 70vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* CARD */
+.card-box {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 18px;
+    width: 370px;
+    backdrop-filter: blur(18px);
+    box-shadow: 
+        0 10px 40px rgba(0,0,0,0.7),
+        inset 0 0 20px rgba(255,255,255,0.05);
+    overflow: hidden;
+    animation: floatCard 4s ease-in-out infinite;
+
+    will-change: transform;
+}
+
+/* FLOAT */
+@keyframes floatCard {
+    0% {transform: translateY(0px);}
+    50% {transform: translateY(-8px);}
+    100% {transform: translateY(0px);}
+}
+
+/* BODY */
+.card-body-custom {
+    padding: 35px;
+}
+
+/* ICON */
+.icon-box {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(#ff7a00,#ff3c00);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+    font-size: 20px;
+    box-shadow: 0 0 15px rgba(255,122,0,0.6);
+}
+
+/* TEXT */
+h4 {
+    font-weight: bold;
+}
+
+.small-text {
+    font-size: 13px;
+    color: #bbb;
+}
+
+/* INPUT */
+input {
+    background: rgba(255,255,255,0.08) !important;
+    border: 1px solid rgba(255,255,255,0.1) !important;
+    color: white !important;
+    padding: 10px;
+    transition: 0.3s;
+}
+
+input:focus {
+    border: 1px solid #ff7a00 !important;
+    box-shadow: 0 0 10px #ff7a00;
+    transform: scale(1.02);
+}
+
+input::placeholder {
+    color: #aaa;
+}
+
+/* BUTTON */
+.btn-custom {
+    background: linear-gradient(45deg,#ff7a00,#ff3c00);
+    border: none;
+    padding: 10px;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.btn-custom:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px #ff7a00;
+}
+
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="page-wrapper">
+
+    <div class="card-box">
+
+        <div class="card-body-custom">
+
+            <div class="icon-box">🔐</div>
+
+            <h4>Reset Password</h4>
+            <p class="small-text">Enter OTP and create a new password</p>
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% for category, message in messages %}
+            <p class="text-danger text-center">{{ message }}</p>
+            {% endfor %}
+            {% endwith %}
+
+            <form method="POST">
+
+                <input type="text" name="otp" class="form-control mb-2" placeholder="Enter OTP" required>
+
+                <input type="password" name="password" class="form-control mb-2" placeholder="New Password" required>
+
+                <input type="password" name="confirm_password" class="form-control mb-3" placeholder="Confirm Password" required>
+
+                <button class="btn btn-custom w-100">Reset Password →</button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

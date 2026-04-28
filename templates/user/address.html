@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Select Address</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(135deg, #fff7ed, #ffedd5, #fed7aa);
+    color: #111827;
+    font-family: 'Segoe UI', sans-serif;
+    overflow-x: hidden;
+}
+
+a {
+    text-decoration: none;
+}
+
+/* NAVBAR */
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: #000 !important;
+    padding: 10px 20px;
+}
+
+.navbar-brand {
+    color: #ff7a00 !important;
+    font-weight: bold;
+}
+
+.nav-btn {
+    color: #ccc;
+    margin: 0 8px;
+    font-weight: 500;
+}
+
+.nav-btn:hover {
+    color: #ff7a00;
+}
+
+.navbar-toggler {
+    border: none;
+}
+
+/* MAIN */
+.main-content {
+    flex: 1;
+    padding: 35px 12px 45px;
+}
+
+.address-box {
+    background: rgba(255,255,255,0.96);
+    border-radius: 24px;
+    padding: 35px;
+    box-shadow: 0 18px 45px rgba(15, 23, 42, 0.14);
+}
+
+.page-title {
+    font-size: 30px;
+    font-weight: 800;
+    margin-bottom: 28px;
+    color: #0f172a;
+}
+
+/* ADDRESS CARD */
+.address-card {
+    background: #ffffff;
+    color: #111827;
+    border-radius: 22px;
+    padding: 24px;
+    margin-bottom: 24px;
+    border: 1px solid #f1f5f9;
+    border-left: 7px solid #ff7a00;
+    box-shadow: 0 10px 28px rgba(15, 23, 42, 0.08);
+    transition: 0.3s;
+    position: relative;
+}
+
+.address-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 35px rgba(15, 23, 42, 0.14);
+}
+
+.address-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-bottom: 14px;
+}
+
+.address-name {
+    font-size: 20px;
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 4px;
+}
+
+.address-phone {
+    color: #475569;
+    font-size: 15px;
+    margin-bottom: 0;
+}
+
+.address-details {
+    background: #fff7ed;
+    border-radius: 14px;
+    padding: 14px 16px;
+    margin-top: 10px;
+}
+
+.address-details p {
+    margin-bottom: 5px;
+    color: #334155;
+    line-height: 1.5;
+}
+
+.address-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 18px;
+}
+
+/* BUTTONS */
+.btn-premium {
+    border-radius: 50px;
+    padding: 8px 22px;
+    font-size: 14px;
+    border: none;
+    transition: 0.3s;
+    display: inline-block;
+    font-weight: 600;
+}
+
+.btn-use {
+    background: linear-gradient(45deg, #22c55e, #16a34a);
+    color: white;
+}
+
+.btn-edit {
+    background: linear-gradient(45deg, #facc15, #f59e0b);
+    color: black;
+}
+
+.btn-delete {
+    background: linear-gradient(45deg, #ef4444, #dc2626);
+    color: white;
+}
+
+.btn-use:hover,
+.btn-edit:hover,
+.btn-delete:hover,
+.btn-add:hover {
+    transform: scale(1.05);
+}
+
+.btn-add {
+    background: linear-gradient(45deg, #ff7a00, #ff3c00);
+    color: white;
+    border-radius: 50px;
+    padding: 11px 26px;
+    border: none;
+    transition: 0.3s;
+    font-weight: 700;
+}
+
+/* FORM */
+.add-address-box {
+    background: #f8fafc;
+    border-radius: 20px;
+    padding: 24px;
+    margin-top: 28px;
+    border: 1px solid #e5e7eb;
+}
+
+.form-control {
+    border-radius: 12px;
+    padding: 11px 13px;
+}
+
+/* FOOTER */
+.footer {
+    background: #111827;
+    color: #d1d5db;
+    padding: 40px 8% 15px;
+    margin-top: auto;
+}
+
+.footer h5 {
+    color: white;
+    font-weight: 700;
+}
+
+.footer a {
+    display: block;
+    color: #d1d5db;
+    text-decoration: none;
+    margin-bottom: 7px;
+}
+
+.footer a:hover {
+    color: #ff7a00;
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.1);
+    margin-top: 25px;
+    padding-top: 15px;
+    text-align: center;
+    font-size: 14px;
+}
+
+/* RESPONSIVE NAV */
+@media(max-width:991px) {
+    #nav {
+        background: #000;
+        padding: 15px;
+        border-top: 1px solid #222;
+    }
+
+    #nav a {
+        display: block;
+        padding: 8px 0;
+    }
+
+    .nav-btn {
+        margin: 0;
+    }
+}
+
+/* RESPONSIVE */
+@media(max-width:768px) {
+    .address-box {
+        padding: 24px;
+        border-radius: 20px;
+    }
+
+    .page-title {
+        font-size: 26px;
+    }
+
+    .address-card {
+        padding: 20px;
+    }
+}
+
+@media(max-width:575px) {
+    .navbar {
+        padding: 10px 12px;
+    }
+
+    .navbar-brand {
+        font-size: 1rem;
+    }
+
+    .main-content {
+        padding: 22px 12px 35px;
+    }
+
+    .address-box {
+        padding: 18px 14px;
+    }
+
+    .page-title {
+        font-size: 23px;
+    }
+
+    .address-card {
+        padding: 18px 15px;
+        border-radius: 18px;
+        margin-bottom: 18px;
+    }
+
+    .address-name {
+        font-size: 18px;
+    }
+
+    .address-details {
+        padding: 12px;
+    }
+
+    .btn-premium {
+        width: 100%;
+        text-align: center;
+    }
+
+    .address-actions form {
+        width: 100%;
+    }
+
+    .address-actions form button {
+        width: 100%;
+    }
+
+    .btn-add {
+        width: 100%;
+    }
+
+    .add-address-box {
+        padding: 18px 14px;
+    }
+
+    .footer {
+        padding: 30px 20px 15px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-black sticky-top">
+  <div class="container-fluid">
+
+    <a class="navbar-brand d-flex align-items-center" href="/user-dashboard">
+      <span style="width:35px;height:35px;
+      background:linear-gradient(#ff7a00,#ff3c00);
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      margin-right:8px;">🛒</span>
+      SmartCart
+    </a>
+
+    <button class="navbar-toggler bg-warning" type="button"
+      data-bs-toggle="collapse" data-bs-target="#nav">
+      ☰
+    </button>
+
+    <div class="collapse navbar-collapse" id="nav">
+      <div class="ms-auto d-flex flex-lg-row flex-column align-items-lg-center gap-2 mt-3 mt-lg-0">
+        <a href="/user-dashboard" class="nav-btn">🏠 Home</a>
+        <a href="/user/products" class="nav-btn">🛍 Shop</a>
+        <a href="/user/profile" class="nav-btn">👤 Profile</a>
+        <a href="/user/cart" class="nav-btn">🛒 Cart</a>
+        <a href="/user-logout" class="nav-btn">Logout</a>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+<div class="container main-content">
+<div class="address-box">
+
+<h2 class="page-title">📍 Select Address</h2>
+
+{% for addr in addresses %}
+<div class="address-card">
+
+    <div class="address-top">
+        <div>
+            <h5 class="address-name">{{ addr.full_name }}</h5>
+            <p class="address-phone"><i class="bi bi-telephone-fill"></i> {{ addr.phone }}</p>
+        </div>
+    </div>
+
+    <div class="address-details">
+        <p><i class="bi bi-house-door-fill"></i> {{ addr.address }}, {{ addr.city }}</p>
+        <p><i class="bi bi-geo-alt-fill"></i> {{ addr.state }} - {{ addr.pincode }}</p>
+    </div>
+
+    <div class="address-actions">
+
+        <a href="/user/select-address/{{ addr.id }}" class="btn-premium btn-use">Use</a>
+
+        <a href="/user/edit-address/{{ addr.id }}" class="btn-premium btn-edit">Edit</a>
+
+        <form action="/user/delete-address/{{ addr.id }}" method="POST"
+              onsubmit="return confirm('Delete this address?')">
+            <button class="btn-premium btn-delete">Delete</button>
+        </form>
+
+    </div>
+
+</div>
+{% endfor %}
+
+<div class="add-address-box">
+<h4 class="mb-3 fw-bold">➕ Add New Address</h4>
+
+<form action="/user/save-address" method="POST">
+
+<input name="full_name" class="form-control mb-2" placeholder="Full Name" required>
+<input name="phone" class="form-control mb-2" placeholder="Phone Number" required>
+<input name="pincode" class="form-control mb-2" placeholder="Pincode" required>
+<textarea name="address" class="form-control mb-2" placeholder="Full Address" required></textarea>
+<input name="city" class="form-control mb-2" placeholder="City" required>
+<input name="state" class="form-control mb-3" placeholder="State" required>
+
+<button class="btn-add">Add Address</button>
+
+</form>
+</div>
+
+</div>
+</div>
+
+<footer class="footer">
+<div class="row gy-4">
+
+<div class="col-md-4">
+<h5><i class="bi bi-cart3"></i> SmartCart</h5>
+<p>Your one-stop shop for electronics, fashion and more 🚀</p>
+</div>
+
+<div class="col-md-3">
+<h5>Quick Links</h5>
+<a href="/user-dashboard">Home</a>
+<a href="/user/products">Shop</a>
+<a href="/user/profile">Profile</a>
+<a href="/user/cart">Cart</a>
+</div>
+
+<div class="col-md-3">
+<h5>Categories</h5>
+<a href="/user/products">Electronics</a>
+<a href="/user/products">Fashion</a>
+<a href="/user/products">Home</a>
+<a href="/user/products">Gadgets</a>
+</div>
+
+<div class="col-md-2">
+<h5>Follow Us</h5>
+<div class="d-flex gap-3 fs-5">
+<i class="bi bi-facebook"></i>
+<i class="bi bi-instagram"></i>
+<i class="bi bi-twitter-x"></i>
+<i class="bi bi-youtube"></i>
+</div>
+</div>
+
+</div>
+
+<div class="footer-bottom">
+© 2026 SmartCart | Fast • Secure • Reliable
+</div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

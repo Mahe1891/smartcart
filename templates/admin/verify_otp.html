@@ -1,0 +1,96 @@
+{% extends "admin/admin_base.html" %}
+
+{% block title %}Verify OTP - SmartCart{% endblock %}
+
+{% block extra_css %}
+<style>
+
+/* OTP CARD */
+.otp-card {
+    width: 100%;
+    max-width: 420px;
+    padding: 30px;
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* INPUT */
+.form-control {
+    border-radius: 10px;
+    background: rgba(255,255,255,0.1);
+    border: none;
+    color: white;
+}
+
+.form-control::placeholder {
+    color: #bbb;
+}
+
+/* BUTTON */
+.btn-custom {
+    background: linear-gradient(135deg, #ff7a00, #ff3c00);
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+}
+
+.btn-custom:hover {
+    background: linear-gradient(135deg, #ff3c00, #ff7a00);
+}
+
+</style>
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container px-3">
+    <div class="otp-card text-center mx-auto">
+
+        <!-- FLASH MESSAGE -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div id="flash-msg" class="alert alert-danger">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        <h2 class="mb-4 text-white">Verify OTP</h2>
+
+        <form method="POST" action="/verify-otp">
+
+            <div class="mb-3 text-start">
+                <label class="text-light">Email OTP</label>
+                <input type="text" name="otp" class="form-control" placeholder="Enter OTP" required>
+            </div>
+
+            <div class="mb-3 text-start">
+                <label class="text-light">Create Password</label>
+                <input type="password" name="password" class="form-control" placeholder="Create password" required>
+            </div>
+
+            <button class="btn btn-custom w-100">Verify & Register</button>
+
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}
+
+
+{% block extra_js %}
+<script>
+setTimeout(function () {
+    let msg = document.getElementById("flash-msg");
+    if (msg) {
+        msg.style.display = "none";
+    }
+}, 2000);
+</script>
+{% endblock %}

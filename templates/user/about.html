@@ -1,0 +1,106 @@
+{% extends "user/base.html" %}
+
+{% block title %}User About - SmartCart{% endblock %}
+
+{% block extra_css %}
+<style>
+
+/* SAME WRAPPER → SAME HEIGHT/BEHAVIOR */
+.page-wrapper {
+    min-height: 70vh;
+}
+
+/* SECTION */
+.section {
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.section h2 {
+    font-weight: bold;
+    font-size: 32px;
+}
+
+.section p {
+    color: #ddd;
+}
+
+/* CARD */
+.card-box {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 18px;
+    padding: 25px;
+
+    backdrop-filter: blur(18px);
+    border: 1px solid rgba(255,255,255,0.15);
+
+    box-shadow: 
+        0 10px 40px rgba(0,0,0,0.7),
+        inset 0 0 15px rgba(255,255,255,0.05);
+
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    will-change: transform;
+}
+
+.card-box:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 0 20px rgba(255,122,0,0.6);
+}
+
+.card-box h4 {
+    color: #ffb066;
+}
+
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="page-wrapper">
+
+    <div class="section">
+        <h2 class="mb-3">User About SmartCart</h2>
+        <p>A modern shopping platform designed for smooth user experience.</p>
+    </div>
+
+    <div class="container mb-5">
+
+        <div class="row g-4">
+
+            <div class="col-md-6">
+                <div class="card-box">
+                    <h4>Our Purpose</h4>
+                    <p>
+                        SmartCart helps users easily browse products,
+                        manage carts, and complete purchases securely.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card-box">
+                    <h4>Key Features</h4>
+                    <ul>
+                        <li>Product Browsing</li>
+                        <li>Add to Cart</li>
+                        <li>Secure Checkout</li>
+                        <li>Order Tracking</li>
+                        <li>User Dashboard</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <div class="card-box">
+                    <h4>Technologies Used</h4>
+                    <p>HTML, CSS, Bootstrap, Python (Flask), MySQL</p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

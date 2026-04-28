@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Cart</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(135deg, #fff7ed, #ffedd5, #fed7aa);
+    color: #111827;
+    font-family: 'Segoe UI', sans-serif;
+    overflow-x: hidden;
+}
+
+a {
+    text-decoration: none;
+}
+
+/* NAVBAR */
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: #000 !important;
+    padding: 10px 20px;
+}
+
+.navbar-brand {
+    color: #ff7a00 !important;
+    font-weight: bold;
+}
+
+.nav-btn {
+    color: #ccc;
+    margin: 0 8px;
+    font-weight: 500;
+}
+
+.nav-btn:hover {
+    color: #ff7a00;
+}
+
+.navbar-toggler {
+    border: none;
+}
+
+/* MAIN */
+.main-content {
+    flex: 1;
+    padding: 35px 12px 50px;
+}
+
+.cart-box {
+    background: rgba(255,255,255,0.96);
+    border-radius: 24px;
+    padding: 30px;
+    box-shadow: 0 18px 45px rgba(15, 23, 42, 0.14);
+}
+
+.cart-title {
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 25px;
+}
+
+/* TABLE */
+.table-responsive {
+    border-radius: 18px;
+    overflow-x: auto;
+}
+
+.table {
+    background: #fff;
+    color: #000;
+    min-width: 760px;
+    margin-bottom: 0;
+}
+
+.table th {
+    background: #000;
+    color: #fff;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.table td {
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+.table img {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+/* QTY */
+.qty-box {
+    display: inline-flex;
+    align-items: center;
+}
+
+.qty-btn {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.qty-minus {
+    background: #ef4444;
+}
+
+.qty-plus {
+    background: #22c55e;
+}
+
+.qty-number {
+    margin: 0 10px;
+    font-weight: 700;
+}
+
+/* BUTTONS */
+.btn-remove {
+    border: 1px solid #ef4444;
+    color: #ef4444;
+    padding: 6px 14px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.btn-remove:hover {
+    background: #ef4444;
+    color: #fff;
+}
+
+.btn-buy {
+    background: linear-gradient(45deg, #22c55e, #16a34a);
+    color: white;
+    border-radius: 50px;
+    padding: 10px 22px;
+    border: none;
+    font-weight: 700;
+}
+
+.btn-warning {
+    background: linear-gradient(45deg,#ff7a00,#ff3c00);
+    border: none;
+    color: white;
+    padding: 10px 22px;
+    border-radius: 50px;
+    font-weight: 700;
+    display: inline-block;
+}
+
+/* TOTAL BOX */
+.total-box {
+    margin-top: 25px;
+    background: #fff7ed;
+    border-radius: 18px;
+    padding: 20px;
+    border: 1px solid #fed7aa;
+}
+
+.total-box h4 {
+    font-weight: 800;
+    color: #0f172a;
+}
+
+.selected-total {
+    color: #16a34a !important;
+}
+
+/* EMPTY */
+.empty-cart {
+    background: #fff7ed;
+    border-radius: 20px;
+    padding: 35px 20px;
+}
+
+/* FOOTER */
+.footer {
+    background: #111827;
+    color: #d1d5db;
+    padding: 40px 8% 15px;
+    margin-top: auto;
+}
+
+.footer h5 {
+    color: white;
+    font-weight: 700;
+}
+
+.footer a {
+    display: block;
+    color: #d1d5db;
+    text-decoration: none;
+    margin-bottom: 7px;
+}
+
+.footer a:hover {
+    color: #ff7a00;
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.1);
+    margin-top: 25px;
+    padding-top: 15px;
+    text-align: center;
+    font-size: 14px;
+}
+
+/* RESPONSIVE */
+@media(max-width:991px) {
+    #nav {
+        background: #000;
+        padding: 15px;
+        border-top: 1px solid #222;
+    }
+
+    #nav a {
+        display: block;
+        padding: 8px 0;
+    }
+
+    .nav-btn {
+        margin: 0;
+    }
+}
+
+@media(max-width:768px) {
+    .cart-box {
+        padding: 22px;
+        border-radius: 20px;
+    }
+
+    .cart-title {
+        font-size: 26px;
+    }
+}
+
+@media(max-width:575px) {
+    .navbar {
+        padding: 10px 12px;
+    }
+
+    .navbar-brand {
+        font-size: 1rem;
+    }
+
+    .main-content {
+        padding: 24px 10px 35px;
+    }
+
+    .cart-box {
+        padding: 18px 12px;
+    }
+
+    .cart-title {
+        font-size: 24px;
+        text-align: center;
+    }
+
+    .table {
+        min-width: 720px;
+        font-size: 13px;
+    }
+
+    .btn-buy,
+    .btn-warning {
+        width: 100%;
+        text-align: center;
+    }
+
+    .total-box {
+        padding: 16px;
+    }
+
+    .total-box h4 {
+        font-size: 18px;
+    }
+
+    .footer {
+        padding: 30px 20px 15px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-black sticky-top">
+  <div class="container-fluid">
+
+    <a class="navbar-brand d-flex align-items-center" href="/user-dashboard">
+      <span style="width:35px;height:35px;
+      background:linear-gradient(#ff7a00,#ff3c00);
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      margin-right:8px;">🛒</span>
+      SmartCart
+    </a>
+
+    <button class="navbar-toggler bg-warning" type="button"
+      data-bs-toggle="collapse" data-bs-target="#nav">
+      ☰
+    </button>
+
+    <div class="collapse navbar-collapse" id="nav">
+      <div class="ms-auto d-flex flex-lg-row flex-column align-items-lg-center gap-2 mt-3 mt-lg-0">
+        <a href="/user-dashboard" class="nav-btn">🏠 Home</a>
+        <a href="/user/products" class="nav-btn">🛍 Shop</a>
+        <a href="/user/profile" class="nav-btn">👤 Profile</a>
+        <a href="/user/cart" class="nav-btn">🛒 Cart</a>
+        <a href="/user-logout" class="nav-btn">Logout</a>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+<div class="container mt-2" style="max-width: 400px;">
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+{% for category, message in messages %}
+<div class="alert alert-{{ category }} py-2 px-3 small fade show flash-msg">
+{{ message }}
+</div>
+{% endfor %}
+{% endif %}
+{% endwith %}
+</div>
+
+<div class="container main-content">
+<div class="cart-box">
+
+<h2 class="cart-title">🛒Crazy Cart</h2>
+
+{% if cart %}
+
+<form action="/user/buy-selected" method="POST">
+
+<div class="table-responsive">
+<table class="table table-bordered text-center align-middle">
+
+<tr>
+<th>Select</th>
+<th>IMAGE</th>
+<th>NAME</th>
+<th>PRICE</th>
+<th>QUANTITY</th>
+<th>TOTAL</th>
+<th>ACTION</th>
+</tr>
+
+{% for pid, item in cart.items() %}
+<tr>
+
+<td>
+<input type="checkbox"
+       class="item-check"
+       data-price="{{ item.price }}"
+       data-qty="{{ item.quantity }}"
+       name="selected_items"
+       value="{{ pid }}">
+</td>
+
+<td>
+<img src="/static/uploads/product_images/{{ item.image }}">
+</td>
+
+<td>{{ item.name }}</td>
+
+<td>₹{{ item.price }}</td>
+
+<td>
+<div class="qty-box">
+<a href="/user/cart/decrease/{{ pid }}" class="qty-btn qty-minus">−</a>
+<span class="qty-number">{{ item.quantity }}</span>
+<a href="/user/cart/increase/{{ pid }}" class="qty-btn qty-plus">+</a>
+</div>
+</td>
+
+<td>₹{{ item.price * item.quantity }}</td>
+
+<td>
+<a href="/user/cart/remove/{{ pid }}" class="btn-remove">Remove</a>
+</td>
+
+</tr>
+{% endfor %}
+
+</table>
+</div>
+
+<div class="total-box">
+<h4>Grand Total: ₹<span id="grandTotal">{{ grand_total }}</span></h4>
+
+<h4 class="selected-total">
+Selected Total: ₹<span id="selectedTotal">0</span>
+</h4>
+
+<button type="submit" class="btn-buy mt-3">
+Buy Selected Items
+</button>
+</div>
+
+</form>
+
+{% else %}
+
+<div class="text-center empty-cart mt-3">
+    <h3>Your Cart is Empty 🛒</h3>
+    <p>Add some products to continue shopping.</p>
+
+    <a href="/user/products" class="btn-warning mt-3">
+        Shop Now
+    </a>
+</div>
+
+{% endif %}
+
+</div>
+</div>
+
+<footer class="footer">
+<div class="row gy-4">
+
+<div class="col-md-4">
+<h5><i class="bi bi-cart3"></i> SmartCart</h5>
+<p>Your one-stop shop for electronics, fashion and more 🚀</p>
+</div>
+
+<div class="col-md-3">
+<h5>Quick Links</h5>
+<a href="/user-dashboard">Home</a>
+<a href="/user/products">Shop</a>
+<a href="/user/profile">Profile</a>
+<a href="/user/cart">Cart</a>
+</div>
+
+<div class="col-md-3">
+<h5>Categories</h5>
+<a href="/user/products">Electronics</a>
+<a href="/user/products">Fashion</a>
+<a href="/user/products">Home</a>
+<a href="/user/products">Gadgets</a>
+</div>
+
+<div class="col-md-2">
+<h5>Follow Us</h5>
+<div class="d-flex gap-3 fs-5">
+<i class="bi bi-facebook"></i>
+<i class="bi bi-instagram"></i>
+<i class="bi bi-twitter-x"></i>
+<i class="bi bi-youtube"></i>
+</div>
+</div>
+
+</div>
+
+<div class="footer-bottom">
+© 2026 SmartCart | Fast • Secure • Reliable
+</div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+setTimeout(() => {
+    document.querySelectorAll('.flash-msg').forEach(el => {
+        el.style.transition = "opacity 0.5s";
+        el.style.opacity = "0";
+        setTimeout(() => el.remove(), 500);
+    });
+}, 1500);
+
+function updateSelectedTotal() {
+    let total = 0;
+
+    document.querySelectorAll('.item-check:checked').forEach(cb => {
+        let price = parseFloat(cb.dataset.price);
+        let qty = parseInt(cb.dataset.qty);
+        total += price * qty;
+    });
+
+    document.getElementById('selectedTotal').innerText = total.toFixed(2);
+}
+
+document.querySelectorAll('.item-check').forEach(cb => {
+    cb.addEventListener('change', updateSelectedTotal);
+});
+</script>
+
+</body>
+</html>

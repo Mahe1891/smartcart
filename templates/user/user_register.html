@@ -1,0 +1,120 @@
+{% extends "user/base.html" %}
+
+{% block title %}User Registration - SmartCart{% endblock %}
+
+{% block extra_css %}
+<style>
+
+/* CENTER WRAPPER (same fix as others) */
+.page-wrapper {
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* CARD */
+.register-box {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    padding: 30px;
+    border-radius: 18px;
+    backdrop-filter: blur(18px);
+
+    box-shadow: 
+        0 10px 40px rgba(0, 0, 0, 0.7),
+        inset 0 0 15px rgba(255,255,255,0.05);
+
+    width: 100%;
+    max-width: 400px;
+
+    will-change: transform;
+}
+
+/* INPUT GROUP */
+.input-group {
+    background: rgba(255,255,255,0.08);
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.1);
+    overflow: hidden;
+}
+
+.input-group-text {
+    background: transparent;
+    border: none;
+    color: #ff7a00;
+}
+
+/* INPUT */
+.form-control {
+    background: transparent;
+    border: none;
+    color: white;
+}
+
+.form-control:focus {
+    box-shadow: none;
+}
+
+/* FOCUS */
+.input-group:focus-within {
+    border: 1px solid #ff7a00;
+    box-shadow: 0 0 10px #ff7a00;
+}
+
+/* BUTTON */
+.btn-custom {
+    background: linear-gradient(45deg,#ff7a00,#ff3c00);
+    border: none;
+    transition: 0.3s;
+    font-weight: 500;
+}
+
+.btn-custom:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px #ff7a00;
+}
+
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="page-wrapper">
+
+    <div class="register-box">
+
+        <h3 class="text-center mb-4">User Registration</h3>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% for category, message in messages %}
+        <p class="text-danger text-center">{{ message }}</p>
+        {% endfor %}
+        {% endwith %}
+
+        <form method="POST" action="/user-register">
+
+            <div class="mb-3 input-group">
+                <span class="input-group-text">👤</span>
+                <input type="text" name="name" class="form-control" placeholder="Enter your name" required>
+            </div>
+
+            <div class="mb-3 input-group">
+                <span class="input-group-text">📧</span>
+                <input type="email" name="email" class="form-control" placeholder="Enter your email" required>
+            </div>
+
+            <button class="btn btn-custom w-100">Register</button>
+
+        </form>
+
+        <p class="text-center mt-3">
+            Already have an account?
+            <a href="/user-login" class="text-warning">Login</a>
+        </p>
+
+    </div>
+
+</div>
+
+{% endblock %}

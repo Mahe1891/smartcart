@@ -1,0 +1,87 @@
+{% extends "user/base.html" %}
+
+{% block title %}Verify OTP - SmartCart{% endblock %}
+
+{% block extra_css %}
+<style>
+
+/* CENTER WRAPPER (same as others → no shaking) */
+.page-wrapper {
+    min-height: 70vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* BOX */
+.box {
+    background: rgba(255,255,255,0.05);
+    padding: 30px;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    width: 100%;
+    max-width: 400px;
+
+    will-change: transform;
+}
+
+/* INPUT */
+.form-control {
+    background: rgba(255,255,255,0.1);
+    border: none;
+    color: white;
+}
+
+.form-control:focus {
+    box-shadow: none;
+}
+
+/* BUTTON */
+.btn-custom {
+    background: #ff7a00;
+    border: none;
+}
+
+.btn-custom:hover {
+    background: #ff3c00;
+}
+
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="page-wrapper">
+
+    <div class="box">
+
+        <h3 class="text-center mb-4">Verify OTP</h3>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% for category, message in messages %}
+        <p class="text-danger text-center">{{ message }}</p>
+        {% endfor %}
+        {% endwith %}
+
+        <form method="POST" action="/user-register-otp">
+
+            <div class="mb-3">
+                <label>Enter OTP</label>
+                <input type="text" name="otp" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label>Create Password</label>
+                <input type="password" name="password" class="form-control" required>
+            </div>
+
+            <button class="btn btn-custom w-100">Verify & Register</button>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

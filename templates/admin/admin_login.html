@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>SmartCart Login</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        /* 🔥 BACKGROUND */
+        body {
+            background: linear-gradient(135deg, #0f0f0f, #1c1c1c, #ff7a00);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        /* 🔥 NAVBAR FIXED */
+        .navbar {
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 10px 0;
+            /* ✅ spacing fix */
+        }
+
+        .navbar-brand {
+            color: #ff7a00 !important;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .navbar-nav .nav-link {
+            color: #ddd !important;
+            padding: 8px 14px;
+            /* ✅ spacing between items */
+            font-weight: 500;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #ff7a00 !important;
+        }
+
+        /* 🔥 MAIN CENTER */
+        .main-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* 🔥 LOGIN CARD */
+        .login-card {
+            width: 100%;
+            max-width: 420px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+            transition: 0.3s;
+        }
+
+        .login-card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* INPUT */
+        .form-control {
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: none;
+        }
+
+        .form-control::placeholder {
+            color: #ccc;
+        }
+
+        /* BUTTON */
+        .btn-custom {
+            background: linear-gradient(135deg, #ff7a00, #ff3c00);
+            color: white;
+            border-radius: 12px;
+            font-weight: bold;
+        }
+
+        .btn-custom:hover {
+            background: linear-gradient(135deg, #ff3c00, #ff7a00);
+        }
+
+        /* FOOTER */
+        .footer {
+            background: #000;
+            color: #aaa;
+            text-align: center;
+            padding: 12px;
+            font-size: 14px;
+        }
+
+        /* MOBILE */
+        @media (max-width:576px) {
+            .login-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container"> <!-- ✅ FIXED -->
+
+            <a class="navbar-brand d-flex align-items-center" href="/admin-login">
+                <span style="
+                    width:38px;
+                    height:38px;
+                    background: linear-gradient(135deg,#ff7a00,#ff3c00);
+                    border-radius:50%;
+                    display:flex;
+                    align-items:center;
+                    justify-content:center;
+                    margin-right:8px;
+                    font-size:18px;
+                    box-shadow:0 0 10px rgba(255,122,0,0.6);
+                ">
+                    🛒
+                </span>
+                SmartCart
+            </a>
+
+            <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-end" id="nav">
+                <ul class="navbar-nav gap-2"> <!-- ✅ spacing -->
+                    <li class="nav-item"><a class="nav-link" href="/admin-login">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/admin-contact">Contact</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+
+    <!-- ================= MAIN ================= -->
+    <div class="main-content">
+
+        <div class="container px-3">
+            <div class="card login-card p-4 mx-auto">
+
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                {% for category, message in messages %}
+                <div id="flash-message" class="alert alert-success text-center mb-3">
+                    {{ message }}
+                </div>
+                {% endfor %}
+                {% endwith %}
+
+                <h3 class="text-center mb-4 text-white fw-bold">Admin Login</h3>
+
+                <form method="POST" action="/admin-login">
+
+                    <div class="mb-3">
+                        <label class="form-label text-light">Email</label>
+                        <input type="email" name="email" class="form-control" placeholder="Enter email" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label text-light">Password</label>
+                        <input type="password" name="password" class="form-control" placeholder="Enter password"
+                            required>
+                    </div>
+
+                    <button type="submit" class="btn btn-custom w-100 mb-3">Login</button>
+
+                    <p class="text-center text-light mb-1">
+                        <a href="/forgot-password" class="text-warning text-decoration-none fw-bold">
+                            Forgot Password?
+                        </a>
+                    </p>
+
+                    <p class="text-center text-light mb-0">
+                        Don’t have an account?
+                        <a href="/admin-signup" class="text-warning text-decoration-none fw-bold">Signup</a>
+                    </p>
+
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="footer">
+        ⚡ SmartCart • Fast • Secure • Reliable <br>
+        © 2026 All Rights Reserved
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        setTimeout(function () {
+            let msg = document.getElementById("flash-message");
+            if (msg) {
+                msg.style.display = "none";
+                window.location.href = "/admin-login";
+            }
+        }, 2000);
+    </script>
+
+</body>
+
+</html>

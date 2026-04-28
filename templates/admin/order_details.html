@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Order #{{ order.order_id }}</title>
+
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #f4f6f9;
+            margin: 0;
+            padding: 0;
+
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* 🔥 NAVBAR (STICKY TOP) */
+        .navbar {
+            background: #000;
+            padding: 10px 20px;
+
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar-brand {
+            color: #ff7a00;
+            font-weight: bold;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        /* MAIN BOX */
+        .box {
+            width: 60%;
+            margin: 40px auto;
+            padding: 25px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+
+            flex: 1;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        p {
+            font-size: 15px;
+            margin: 6px 0;
+        }
+
+        /* STATUS COLORS */
+        .status {
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            color: white;
+        }
+
+        .Pending { background: #ffc107; color:#000; }
+        .Confirmed { background: #17a2b8; }
+        .Packed { background: #6f42c1; }
+        .Shipped { background: #007bff; }
+        .Delivered { background: #28a745; }
+
+        form {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        select {
+            padding: 8px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            background: linear-gradient(45deg,#28a745,#4cd964);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-bottom: 15px;
+            text-decoration: none;
+            background: #6c757d;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 5px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th {
+            background: #0077ff;
+            color: white;
+        }
+
+        th, td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            text-align: center;
+        }
+
+        tr:hover {
+            background: #f9f9f9;
+        }
+
+        h3 {
+            margin-top: 25px;
+            color: #333;
+        }
+
+        /* 🔥 FOOTER (STICKY BOTTOM) */
+        .footer {
+            margin-top: auto;
+            background: #000;
+            text-align: center;
+            padding: 15px;
+            color: #aaa;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<!-- 🔥 NAVBAR -->
+<div class="navbar">
+    <a class="navbar-brand d-flex align-items-center" href="/admin-dashboard">
+        <span style="
+            width:35px;
+            height:35px;
+            background: linear-gradient(#ff7a00,#ff3c00);
+            border-radius:50%;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            margin-right:8px;
+        ">🛒</span>
+        SmartCart
+    </a>
+</div>
+
+<div class="box">
+
+    <a href="/admin/orders" class="back-btn">← Back to Orders</a>
+
+    <h2>📦 Order #{{ order.order_id }}</h2>
+
+    <p><strong>Payment:</strong> {{ order.payment_status }}</p>
+    <p><strong>Total Amount:</strong> ₹{{ order.amount }}</p>
+
+    <p><strong>Current Status:</strong> 
+        <span class="status {{ order.order_status }}">
+            {{ order.order_status }}
+        </span>
+    </p>
+
+    <h3>Update Order Status</h3>
+
+    <form method="POST" action="/admin/update-order-status/{{ order.order_id }}">
+        <select name="status">
+            <option value="Pending" {% if order.order_status == 'Pending' %}selected{% endif %}>Pending</option>
+            <option value="Confirmed" {% if order.order_status == 'Confirmed' %}selected{% endif %}>Confirmed</option>
+            <option value="Packed" {% if order.order_status == 'Packed' %}selected{% endif %}>Packed</option>
+            <option value="Shipped" {% if order.order_status == 'Shipped' %}selected{% endif %}>Shipped</option>
+            <option value="Delivered" {% if order.order_status == 'Delivered' %}selected{% endif %}>Delivered</option>
+        </select>
+
+        <button type="submit" class="btn">Update</button>
+    </form>
+
+    <h3>Items</h3>
+
+    <table>
+        <tr>
+            <th>Product</th>
+            <th>Qty</th>
+            <th>Price (₹)</th>
+        </tr>
+
+        {% for it in items %}
+        <tr>
+            <td>{{ it.product_name }}</td>
+            <td>{{ it.quantity }}</td>
+            <td>{{ it.price }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+</div>
+
+<!-- 🔥 FOOTER -->
+<footer class="footer">
+⚡ SmartCart • Fast • Secure • Reliable <br>
+© 2026 All Rights Reserved __Mahe__
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,72 @@
+{% extends "admin/admin_base.html" %}
+
+{% block title %}About - SmartCart{% endblock %}
+
+{% block extra_css %}
+<style>
+    .section {
+        padding: 60px 20px;
+        text-align: center;
+        color: white;
+    }
+
+    .card-box {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 15px;
+        padding: 25px;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        color: white;
+        height: 100%;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <!-- TOP -->
+    <div class="section">
+        <h2 class="mb-3">About SmartCart System</h2>
+        <p>A modern solution for managing products, users, and orders efficiently.</p>
+    </div>
+
+    <!-- CARDS -->
+    <div class="row g-4">
+
+        <div class="col-md-6">
+            <div class="card-box">
+                <h4>Our Purpose</h4>
+                <p>
+                    SmartCart simplifies product management, user handling,
+                    cart system, and payment integration in one platform.
+                </p>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card-box">
+                <h4>Key Features</h4>
+                <ul>
+                    <li>Admin Dashboard</li>
+                    <li>Product Management</li>
+                    <li>Cart System</li>
+                    <li>Payment Integration</li>
+                    <li>Invoice Generation</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <div class="card-box">
+                <h4>Technologies Used</h4>
+                <p>HTML, CSS, Bootstrap, Python (Flask), MySQL</p>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
