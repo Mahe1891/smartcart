@@ -2,438 +2,526 @@
 <html lang="en">
 
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Products - SmartCart</title>
+    <title>Products - SmartCart</title>
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 
-<style>
-* {
-    box-sizing: border-box;
-}
+    <style>
+        * {
+            box-sizing: border-box;
+        }
 
-body {
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    background: linear-gradient(135deg, #fff7ed, #ffedd5, #fed7aa);
-    color: #111827;
-    font-family: 'Segoe UI', sans-serif;
-    overflow-x: hidden;
-}
+        body {
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #fff7ed, #ffedd5, #fed7aa);
+            color: #111827;
+            font-family: 'Segoe UI', sans-serif;
+            overflow-x: hidden;
+        }
 
-a {
-    text-decoration: none;
-}
+        a {
+            text-decoration: none;
+        }
 
-/* NAVBAR */
-.navbar {
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    background: #000 !important;
-    padding: 10px 20px;
-}
+        /* NAVBAR */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: #000 !important;
+            padding: 10px 20px;
+        }
 
-.navbar-brand {
-    color: #ff7a00 !important;
-    font-weight: bold;
-}
+        .navbar-brand {
+            color: #ff7a00 !important;
+            font-weight: bold;
+        }
 
-.nav-btn {
-    color: #ccc;
-    margin: 0 8px;
-    font-weight: 500;
-}
+        .nav-btn {
+            color: #ccc;
+            margin: 0 8px;
+            font-weight: 500;
+        }
 
-.nav-btn:hover {
-    color: #ff7a00;
-}
+        .nav-btn:hover {
+            color: #ff7a00;
+        }
 
-.navbar-toggler {
-    border: none;
-}
+        .navbar-toggler {
+            border: none;
+        }
 
-/* SEARCH */
-.search-area {
-    padding: 15px 20px;
-    background: #000;
-}
+        /* SEARCH */
+        .search-area {
+            padding: 15px 20px;
+            background: #000;
+        }
 
-.search-form {
-    max-width: 900px;
-    margin: auto;
-    display: flex;
-}
+        .search-form {
+            max-width: 900px;
+            margin: auto;
+            display: flex;
+        }
 
-.search-form select {
-    border-radius: 30px 0 0 30px;
-    border: none;
-    background: #1f2937;
-    color: white;
-    padding: 12px;
-}
+        .search-form select {
+            border-radius: 30px 0 0 30px;
+            border: none;
+            background: #1f2937;
+            color: white;
+            padding: 12px;
+        }
 
-.search-form input {
-    flex: 1;
-    border: none;
-    padding: 12px;
-}
+        .search-form input {
+            flex: 1;
+            border: none;
+            padding: 12px;
+        }
 
-.search-form button {
-    border-radius: 0 30px 30px 0;
-    background: #ff7a00;
-    color: white;
-    border: none;
-    padding: 0 22px;
-}
+        .search-form button {
+            border-radius: 0 30px 30px 0;
+            background: #ff7a00;
+            color: white;
+            border: none;
+            padding: 0 22px;
+        }
 
-/* OFFER BAR */
-.offer-bar {
-    width: 100%;
-    overflow: hidden;
-    background: linear-gradient(90deg, #ff4d4d, #ff9900);
-    color: white;
-    padding: 10px 0;
-    font-weight: 700;
-}
+        /* OFFER BAR */
+        .offer-bar {
+            width: 100%;
+            overflow: hidden;
+            background: linear-gradient(90deg, #ff4d4d, #ff9900);
+            color: white;
+            padding: 10px 0;
+            font-weight: 700;
+        }
 
-.offer-track {
-    display: flex;
-    gap: 50px;
-    white-space: nowrap;
-    animation: scrollOffers 20s linear infinite;
-}
+        .offer-track {
+            display: flex;
+            gap: 50px;
+            white-space: nowrap;
+            animation: scrollOffers 20s linear infinite;
+        }
 
-@keyframes scrollOffers {
-    0% { transform: translateX(0%); }
-    100% { transform: translateX(-50%); }
-}
+        @keyframes scrollOffers {
+            0% {
+                transform: translateX(0%);
+            }
 
-.offer-bar:hover .offer-track {
-    animation-play-state: paused;
-}
+            100% {
+                transform: translateX(-50%);
+            }
+        }
 
-/* MAIN */
-.main-content {
-    flex: 1;
-    padding: 35px 12px 55px;
-}
+        .offer-bar:hover .offer-track {
+            animation-play-state: paused;
+        }
 
-.page-title {
-    font-weight: 900;
-    color: #111827;
-    margin-bottom: 28px;
-}
+        /* MAIN */
+        .main-content {
+            flex: 1;
+            padding: 35px 12px 55px;
+        }
 
-/* PRODUCTS */
-.product-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 22px;
-}
+        .page-title {
+            font-weight: 900;
+            color: #111827;
+            margin-bottom: 28px;
+        }
 
-.product-card {
-    background: rgba(255,255,255,0.96);
-    border-radius: 22px;
-    padding: 18px;
-    text-align: center;
-    box-shadow: 0 14px 35px rgba(15, 23, 42, 0.12);
-    transition: 0.3s;
-}
+        /* PRODUCTS */
+        .product-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 22px;
+        }
 
-.product-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 18px 42px rgba(15, 23, 42, 0.18);
-}
+        .product-card {
+            background: rgba(255, 255, 255, 0.96);
+            border-radius: 22px;
+            padding: 18px;
+            text-align: center;
+            box-shadow: 0 14px 35px rgba(15, 23, 42, 0.12);
+            transition: 0.3s;
+        }
 
-.product-card img {
-    width: 100%;
-    height: 170px;
-    object-fit: contain;
-    margin-bottom: 12px;
-    border-radius: 14px;
-    background: #fff7ed;
-}
+        .product-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 18px 42px rgba(15, 23, 42, 0.18);
+        }
 
-.product-card h3 {
-    font-size: 18px;
-    font-weight: 800;
-    color: #0f172a;
-}
+        .product-card img {
+            width: 100%;
+            height: 170px;
+            object-fit: contain;
+            margin-bottom: 12px;
+            border-radius: 14px;
+            background: #fff7ed;
+        }
 
-.product-card p {
-    font-size: 14px;
-    color: #64748b;
-    margin-bottom: 8px;
-}
+        .product-card h3 {
+            font-size: 18px;
+            font-weight: 800;
+            color: #0f172a;
+        }
 
-.product-card strong {
-    color: #ff7a00;
-    font-size: 18px;
-}
+        .product-card p {
+            font-size: 14px;
+            color: #64748b;
+            margin-bottom: 8px;
+        }
 
-.btn-custom {
-    background: linear-gradient(45deg, #ff7a00, #ff3c00);
-    border: none;
-    color: white;
-    border-radius: 50px;
-    padding: 8px 18px;
-    font-weight: 700;
-}
+        .product-card strong {
+            color: #ff7a00;
+            font-size: 18px;
+        }
 
-.btn-custom:hover {
-    color: white;
-    opacity: 0.9;
-}
+        .btn-custom {
+            background: linear-gradient(45deg, #ffcc00, #ff9900);
+            border: none;
+            color: white;
+            border-radius: 50px;
+            padding: 8px 18px;
+            font-weight: 700;
+        }
 
-/* FOOTER */
-.footer {
-    background: #111827;
-    color: #d1d5db;
-    padding: 40px 8% 15px;
-    margin-top: auto;
-}
+        .btn-custom:hover {
+            color: white;
+            opacity: 0.9;
+        }
 
-.footer h5 {
-    color: white;
-    font-weight: 700;
-}
+        /* FOOTER */
+        .footer {
+            background: #111827;
+            color: #d1d5db;
+            padding: 40px 8% 15px;
+            margin-top: auto;
+        }
 
-.footer a {
-    display: block;
-    color: #d1d5db;
-    text-decoration: none;
-    margin-bottom: 7px;
-}
+        .footer h5 {
+            color: white;
+            font-weight: 700;
+        }
 
-.footer a:hover {
-    color: #ff7a00;
-}
+        .footer a {
+            display: block;
+            color: #d1d5db;
+            text-decoration: none;
+            margin-bottom: 7px;
+        }
 
-.footer-bottom {
-    border-top: 1px solid rgba(255,255,255,0.1);
-    margin-top: 25px;
-    padding-top: 15px;
-    text-align: center;
-    font-size: 14px;
-}
+        .footer a:hover {
+            color: #ff7a00;
+        }
 
-/* RESPONSIVE */
-@media(max-width:991px) {
-    #nav {
-        background: #000;
-        padding: 15px;
-        border-top: 1px solid #222;
-    }
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 25px;
+            padding-top: 15px;
+            text-align: center;
+            font-size: 14px;
+        }
 
-    #nav a {
-        display: block;
-        padding: 8px 0;
-    }
+        /* RESPONSIVE */
+        @media(max-width:991px) {
+            #nav {
+                background: #000;
+                padding: 15px;
+                border-top: 1px solid #222;
+            }
 
-    .nav-btn {
-        margin: 0;
-    }
-}
+            #nav a {
+                display: block;
+                padding: 8px 0;
+            }
 
-@media(max-width:768px) {
-    .search-form {
-        flex-direction: column;
-        gap: 10px;
-    }
+            .nav-btn {
+                margin: 0;
+            }
+        }
 
-    .search-form select,
-    .search-form input,
-    .search-form button {
-        width: 100%;
-        border-radius: 30px;
-        height: 46px;
-    }
-}
+        @media(max-width:768px) {
+            .search-form {
+                flex-direction: column;
+                gap: 10px;
+            }
 
-@media(max-width:575px) {
-    .navbar {
-        padding: 10px 12px;
-    }
+            .search-form select,
+            .search-form input,
+            .search-form button {
+                width: 100%;
+                border-radius: 30px;
+                height: 46px;
+            }
+        }
 
-    .navbar-brand {
-        font-size: 1rem;
-    }
+        @media(max-width:575px) {
+            .navbar {
+                padding: 10px 12px;
+            }
 
-    .main-content {
-        padding: 25px 12px 40px;
-    }
+            .navbar-brand {
+                font-size: 1rem;
+            }
 
-    .page-title {
-        font-size: 25px;
-    }
+            .main-content {
+                padding: 25px 12px 40px;
+            }
 
-    .product-container {
-        grid-template-columns: 1fr;
-    }
+            .page-title {
+                font-size: 25px;
+            }
 
-    .product-card img {
-        height: 180px;
-    }
+            .product-container {
+                grid-template-columns: 1fr;
+            }
 
-    .footer {
-        padding: 30px 20px 15px;
-    }
-}
-</style>
+            .product-card img {
+                height: 180px;
+            }
+
+            .footer {
+                padding: 30px 20px 15px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-black sticky-top">
-  <div class="container-fluid">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-black sticky-top">
+        <div class="container-fluid">
 
-    <a class="navbar-brand d-flex align-items-center" href="/user-dashboard">
-      <span style="width:35px;height:35px;
+            <a class="navbar-brand d-flex align-items-center" href="/user-dashboard">
+                <span style="width:35px;height:35px;
       background:linear-gradient(#ff7a00,#ff3c00);
       border-radius:50%;
       display:flex;
       align-items:center;
       justify-content:center;
       margin-right:8px;">🛒</span>
-      SmartCart
-    </a>
+                SmartCart
+            </a>
 
-    <button class="navbar-toggler bg-warning" type="button"
-      data-bs-toggle="collapse" data-bs-target="#nav">
-      ☰
-    </button>
+            <button class="navbar-toggler bg-warning" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+                ☰
+            </button>
 
-    <div class="collapse navbar-collapse" id="nav">
-      <div class="ms-auto d-flex flex-lg-row flex-column align-items-lg-center gap-2 mt-3 mt-lg-0">
-        <a href="/user-dashboard" class="nav-btn">🏠 Home</a>
-        <a href="/user/products" class="nav-btn">🛍 Shop</a>
-        <a href="/user/profile" class="nav-btn">👤 Profile</a>
-        <a href="/user/cart" class="nav-btn">🛒 Cart</a>
-        <a href="/user-logout" class="nav-btn">Logout</a>
-      </div>
+            <div class="collapse navbar-collapse" id="nav">
+                <div class="ms-auto d-flex flex-lg-row flex-column align-items-lg-center gap-2 mt-3 mt-lg-0">
+                    <a href="/user-dashboard" class="nav-btn">🏠 Home</a>
+                    <a href="/user/products" class="nav-btn">🛍 Shop</a>
+                    <a href="/user/my-orders" class="nav-btn">📦 My Orders</a>
+                    <a href="/user/profile" class="nav-btn">👤 Profile</a>
+                    <a href="/user/cart" class="nav-btn">🛒 Cart</a>
+                    <a href="/user-logout" class="nav-btn">Logout</a>
+                </div>
+            </div>
+
+        </div>
+    </nav>
+
+    <div class="search-area">
+        <form class="search-form" method="GET" action="/user/products">
+
+            <select name="category">
+                <option value="">All</option>
+                {% for cat in categories %}
+                <option value="{{ cat.category }}" {% if request.args.get('category')==cat.category %}selected{% endif
+                    %}>
+                    {{ cat.category }}
+                </option>
+                {% endfor %}
+            </select>
+
+            <input type="text" name="search" placeholder="Search products..."
+                value="{{ request.args.get('search','') }}">
+
+            <button>🔍</button>
+        </form>
     </div>
 
-  </div>
-</nav>
+    <div class="offer-bar">
+        <div class="offer-track">
+            <span>🔥 Big Sale: Up to 50% OFF on Electronics!</span>
+            <span>🚚 Free Delivery on Orders Above ₹999</span>
+            <span>🎁 Buy 1 Get 1 Free on Selected Items</span>
+            <span>💳 Extra 10% Discount on Credit Cards</span>
+            <span>⚡ Limited Time Deals – Hurry Up!</span>
 
-<div class="search-area">
-    <form class="search-form" method="GET" action="/user/products">
-
-        <select name="category">
-            <option value="">All</option>
-            {% for cat in categories %}
-            <option value="{{ cat.category }}"
-            {% if request.args.get('category') == cat.category %}selected{% endif %}>
-                {{ cat.category }}
-            </option>
-            {% endfor %}
-        </select>
-
-        <input type="text" name="search" placeholder="Search products..."
-               value="{{ request.args.get('search','') }}">
-
-        <button>🔍</button>
-    </form>
-</div>
-
-<div class="offer-bar">
-    <div class="offer-track">
-        <span>🔥 Big Sale: Up to 50% OFF on Electronics!</span>
-        <span>🚚 Free Delivery on Orders Above ₹999</span>
-        <span>🎁 Buy 1 Get 1 Free on Selected Items</span>
-        <span>💳 Extra 10% Discount on Credit Cards</span>
-        <span>⚡ Limited Time Deals – Hurry Up!</span>
-
-        <span>🔥 Big Sale: Up to 50% OFF on Electronics!</span>
-        <span>🚚 Free Delivery on Orders Above ₹999</span>
-        <span>🎁 Buy 1 Get 1 Free on Selected Items</span>
-        <span>💳 Extra 10% Discount on Credit Cards</span>
-        <span>⚡ Limited Time Deals – Hurry Up!</span>
+            <span>🔥 Big Sale: Up to 50% OFF on Electronics!</span>
+            <span>🚚 Free Delivery on Orders Above ₹999</span>
+            <span>🎁 Buy 1 Get 1 Free on Selected Items</span>
+            <span>💳 Extra 10% Discount on Credit Cards</span>
+            <span>⚡ Limited Time Deals – Hurry Up!</span>
+        </div>
     </div>
-</div>
 
-<div class="main-content">
+    <div class="main-content">
 
-<h2 class="text-center page-title">All Products</h2>
+        <h2 class="text-center page-title">All Products</h2>
 
-{% with messages = get_flashed_messages(with_categories=true) %}
-{% for category, message in messages %}
-<div class="container" style="max-width: 500px;">
-    <div class="alert alert-success text-center">{{ message }}</div>
-</div>
-{% endfor %}
-{% endwith %}
 
-<div class="container">
-<div class="product-container">
 
-{% for product in products %}
-<div class="product-card">
+        <div class="container">
+            <div class="product-container">
 
-    <img src="/static/uploads/product_images/{{ product.image }}">
+                {% for product in products %}
+                <div class="product-card">
 
-    <h3>{{ product.name }}</h3>
-    <p>{{ product.category }}</p>
-    <p><strong>₹{{ product.price }}</strong></p>
+                    <img src="/static/uploads/product_images/{{ product.image }}">
 
-    <a href="/user/product/{{ product.product_id }}" class="btn btn-custom">View</a>
+                    <h3>{{ product.name }}</h3>
+                    <p>{{ product.category }}</p>
+                    <p><strong>₹{{ product.price }}</strong></p>
 
-</div>
-{% endfor %}
+                    <div class="d-flex justify-content-center gap-2">
 
-</div>
-</div>
+                        <!-- VIEW BUTTON -->
+                        <a href="/user/product/{{ product.product_id }}" class="btn btn-custom">
+                            View
+                        </a>
 
-</div>
+                        <!-- ADD TO CART BUTTON -->
+                        <button onclick="addToCart('{{ product.product_id }}')" class="btn btn-custom">
+                            🛒
+                        </button>
 
-<footer class="footer">
-<div class="row gy-4">
+                    </div>
 
-<div class="col-md-4">
-<h5><i class="bi bi-cart3"></i> SmartCart</h5>
-<p>Your one-stop shop for electronics, fashion and more 🚀</p>
-</div>
+                </div>
+                {% endfor %}
 
-<div class="col-md-3">
-<h5>Quick Links</h5>
-<a href="/user-dashboard">Home</a>
-<a href="/user/products">Shop</a>
-<a href="/user/profile">Profile</a>
-<a href="/user/cart">Cart</a>
-</div>
+            </div>
+        </div>
 
-<div class="col-md-3">
-<h5>Categories</h5>
-<a href="/user/products">Electronics</a>
-<a href="/user/products">Fashion</a>
-<a href="/user/products">Home</a>
-<a href="/user/products">Gadgets</a>
-</div>
+    </div>
 
-<div class="col-md-2">
-<h5>Follow Us</h5>
-<div class="d-flex gap-3 fs-5">
-<i class="bi bi-facebook"></i>
-<i class="bi bi-instagram"></i>
-<i class="bi bi-twitter-x"></i>
-<i class="bi bi-youtube"></i>
-</div>
-</div>
+    <footer class="footer">
+        <div class="row gy-4">
 
-</div>
+            <div class="col-md-4">
+                <h5><i class="bi bi-cart3"></i> SmartCart</h5>
+                <p>Your one-stop shop for electronics, fashion and more 🚀</p>
+            </div>
 
-<div class="footer-bottom">
-© 2026 SmartCart | Fast • Secure • Reliable
-</div>
-</footer>
+            <div class="col-md-3">
+                <h5>Quick Links</h5>
+                <a href="/user-dashboard">Home</a>
+                <a href="/user/products">Shop</a>
+                <a href="/user/profile">Profile</a>
+                <a href="/user/cart">Cart</a>
+            </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+            <div class="col-md-3">
+                <h5>Categories</h5>
+                <a href="/user/products">Electronics</a>
+                <a href="/user/products">Fashion</a>
+                <a href="/user/products">Home</a>
+                <a href="/user/products">Gadgets</a>
+            </div>
 
+            <div class="col-md-2">
+                <h5>Follow Us</h5>
+                <div class="d-flex gap-3 fs-5">
+                    <i class="bi bi-facebook"></i>
+                    <i class="bi bi-instagram"></i>
+                    <i class="bi bi-twitter-x"></i>
+                    <i class="bi bi-youtube"></i>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            © 2026 SmartCart | Fast • Secure • Reliable
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function addToCart(productId) {
+            fetch(`/user/add-to-cart/${productId}`, {
+                method: "POST"
+            })
+                .then(res => res.json())
+                .then(data => {
+                    showFlash(data.message);
+                })
+                .catch(err => console.error(err));
+        }
+    </script>
+    <script>
+        function showFlash(message) {
+            const box = document.getElementById("flashBox");
+
+            const div = document.createElement("div");
+            div.className = "flash-msg";
+            div.innerText = message;
+
+            box.appendChild(div);
+
+            setTimeout(() => {
+                div.remove();
+            }, 3000);
+        }
+    </script>
+    <div id="flashBox"></div>
+
+    <style>
+        #flashBox {
+            position: fixed;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9999;
+        }
+
+        .flash-msg {
+            background: #16a34a;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: 600;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            margin-top: 10px;
+
+            animation: slideDown 0.4s ease, fadeOut 3s forwards;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translate(-50%, 0);
+            }
+        }
+
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+            }
+
+            80% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -20px);
+            }
+        }
+    </style>
 </body>
+
 </html>

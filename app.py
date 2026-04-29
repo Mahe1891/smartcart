@@ -6,6 +6,7 @@
 from flask import Flask, make_response, render_template, request, redirect, session, flash, jsonify, url_for
 from flask_mail import Mail, Message
 from flask_bcrypt import Bcrypt
+from flask import jsonify
 import mysql.connector
 import random
 import config
@@ -1128,10 +1129,9 @@ def user_register_otp():
 def add_to_cart(product_id):
 
     if 'user_id' not in session:
-        flash("Please login first!", "danger")
-        return redirect('/user-login')
+        return jsonify({"message": "Please login first!"})
 
-    # Create cart if doesn't exist
+    # Create cart if not exists
     if 'cart' not in session:
         session['cart'] = {}
 
@@ -1146,15 +1146,14 @@ def add_to_cart(product_id):
     conn.close()
 
     if not product:
-        flash("Product not found!", "danger")
-        return redirect(request.referrer)
+        return jsonify({"message": "Product not found!"})
 
     pid = str(product_id)
 
     # If exists → increase quantity
     if pid in cart:
         cart[pid]['quantity'] += 1
-        flash("Quantity increased!", "success")   # 🔥 added
+        message = "Quantity increased!"
     else:
         cart[pid] = {
             'name': product['name'],
@@ -1162,11 +1161,11 @@ def add_to_cart(product_id):
             'image': product['image'],
             'quantity': 1
         }
-        flash("Item added to cart!", "success")   # 🔥 added
+        message = "Item added to cart!"
 
     session['cart'] = cart
 
-    return redirect(request.referrer)
+    return jsonify({"message": message})
 #ROUTE 11: View Cart Page
 # =================================================================
 # VIEW CART PAGE
@@ -1369,7 +1368,7 @@ def user_reset_password():
             flash("Passwords do not match!", "danger")
             return redirect('/user-reset-password')
 
-        hashed = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+        hashed = bcrypt.generate_password_hash(password).decode('utf-8')
 
         conn = get_db_connection()
         cursor = conn.cursor()
@@ -2536,11 +2535,8 @@ def sa_reset_password():
 
     new_password = request.form['password']
 
-    # ✅ Hash password (IMPORTANT FIX)
-    hashed_password = bcrypt.hashpw(
-        new_password.encode('utf-8'),
-        bcrypt.gensalt()
-    ).decode('utf-8')
+   # ✅ Correct for Flask-Bcrypt
+    hashed_password = bcrypt.generate_password_hash(new_password).decode('utf-8')
 
     # Update DB
     conn = get_db_connection()
